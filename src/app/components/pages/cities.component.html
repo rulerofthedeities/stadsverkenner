@@ -1,0 +1,11 @@
+<km-main-menu></km-main-menu>
+<div class="row">
+  <div 
+    *ngFor="let city of cities; let i = index" 
+    class="col-lg-2 col-md-3 col-xs-4 thumb">
+      <a class="thumbnail" routerLink="{{'/' + city.alias}}">
+        <img class="img-responsive" src="/assets/img/icons/{{city.icon}}" alt="{{city.name}}">
+        <span>{{city.name}}</span>
+      </a>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<section *ngIf="city">
+  <ul class="attractions">
+    <li *ngFor="let article of articles">
+      <img src="{{imgHost}}/img/{{city.alias.en}}/{{article.thumb}}.jpg">
+      <div class="title"><a routerLink="{{article.alias}}">{{article.title}}</a></div>
+      <div [innerHtml]="processHtml(article.preview)" class="intro"></div>
+    </li>
+  </ul>
+</section>

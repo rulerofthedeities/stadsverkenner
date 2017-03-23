@@ -1,0 +1,11 @@
+<section *ngIf="city">
+  <div class="facts">
+    <div class="header border">Ligging van {{city.name.nl}}</div>
+    <div class="map border" *ngIf="city">
+      <img src="{{imgHost}}/img/{{city.alias.en}}/{{city.alias.en}}_minimap.jpg" alt="Ligging van {{city.name.nl}}" />
+    </div>
+    <div class="header border">Enkele Feiten</div>
+  </div>
+</section>
+
+<pre>{{city|json}}</pre>
