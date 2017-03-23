@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {CityService} from '../../services/city.service';
 import {GlobalService} from '../../services/global.service';
 import {ErrorService} from '../../services/error.service';
 import {City} from '../../models/city.model';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   templateUrl: './city-intro.component.html'
 })
-export class CityIntroComponent implements OnInit {
+export class CityIntroComponent implements OnInit, OnDestroy {
+  componentActive = true;
   city: City;
   imgHost: string;
 
@@ -26,7 +28,10 @@ export class CityIntroComponent implements OnInit {
   }
 
   fetchCityData(cityAlias: string) {
-    this.cityService.getCityData(cityAlias).subscribe(
+    this.cityService
+    .getCityData(cityAlias)
+    .takeWhile(() => this.componentActive)
+    .subscribe(
       data => {this.city = data; },
       error => this.errorService.handleError(error)
     );
@@ -34,5 +39,9 @@ export class CityIntroComponent implements OnInit {
 
   fetchImageHost() {
     this.imgHost = this.globalService.imageHost;
+  }
+
+  ngOnDestroy() {
+    this.componentActive = false;
   }
 }

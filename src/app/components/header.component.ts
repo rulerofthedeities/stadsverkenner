@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderService} from '../services/header.service';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'km-header',
@@ -14,6 +15,7 @@ import {HeaderService} from '../services/header.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  componentActive = true;
   title = 'Stadsverkenner';
 
   constructor(
@@ -21,10 +23,16 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.headerService.newTitle.subscribe(
+    this.headerService.newTitle
+    .takeWhile(() => this.componentActive)
+    .subscribe(
       title => {
         this.title = title;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.componentActive = false;
   }
 }

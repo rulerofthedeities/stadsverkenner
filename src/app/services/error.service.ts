@@ -5,12 +5,13 @@ export class ErrorService {
   errorOccurred = new EventEmitter<Error>();
 
   handleError(error: any) {
-    console.log('Error:', error);
+    const errorObj = error.json();
+    console.log('Error:', errorObj);
     let msg = 'Ongekende fout',
         title = 'error';
-    if (error && error.error) {
-      msg = error.error.error || msg;
-      title = error.title || title;
+    if (errorObj && errorObj.error) {
+      msg = errorObj.error.error || msg;
+      title = errorObj.title || title;
     }
     this.errorOccurred.emit(new Error(title, msg));
   }

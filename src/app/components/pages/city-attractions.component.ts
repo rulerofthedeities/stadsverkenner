@@ -46,14 +46,20 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
   }
 
   fetchCity(cityAlias: string) {
-    this.cityService.getCity(cityAlias).subscribe(
+    this.cityService
+    .getCity(cityAlias)
+    .takeWhile(() => this.componentActive)
+    .subscribe(
       data => {this.city = data; console.log('city', data); },
       error => this.errorService.handleError(error)
     );
   }
 
   fetchArticles(cityAlias: string) {
-    this.itemService.getArticles(cityAlias).subscribe(
+    this.itemService
+    .getArticles(cityAlias)
+    .takeWhile(() => this.componentActive)
+    .subscribe(
       articles => {this.articles = articles; console.log('articles', articles); },
       error => this.errorService.handleError(error)
     );

@@ -4,6 +4,7 @@ import {ErrorService} from '../../services/error.service';
 import {CityService} from '../../services/city.service';
 import {HeaderService} from '../../services/header.service';
 import {Flags} from '../../models/city.model';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   template: `
@@ -39,6 +40,7 @@ export class CityComponent implements OnInit, OnDestroy {
   getCity(cityAlias: string) {
     this.cityService
     .getCity(cityAlias)
+    .takeWhile(() => this.componentActive)
     .subscribe(
       data => {
         this.cityData = data;
