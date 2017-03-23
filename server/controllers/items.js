@@ -6,7 +6,7 @@ module.exports = {
   getArticles: function(req, res) {
     cityAlias = req.params.city;
     const pipeline = [
-      {$match:{'city.alias': cityAlias, 'isPublished.nl':true}},
+      {$match:{'city.alias.nl': cityAlias, 'isPublished.nl':true}},
       {$project:{
         _id:0, 
         title:'$title.nl', 
@@ -26,10 +26,11 @@ module.exports = {
     cityAlias = req.params.city;
     itemAlias = req.params.item;
     const pipeline = [
-      {$match:{'city.alias': cityAlias, 'alias.nl': itemAlias, 'isPublished.nl':true}},
+      {$match:{'city.alias.nl': cityAlias, 'alias.nl': itemAlias, 'isPublished.nl':true}},
       {$project:{
         _id:0, 
         title:'$title.nl',
+        subTitle: '$subTitle.nl',
         alias:'$alias.nl',
         preview:'$preview.nl',
         cityName: '$city.name.nl'

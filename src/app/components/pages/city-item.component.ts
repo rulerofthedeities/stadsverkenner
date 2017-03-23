@@ -3,18 +3,28 @@ import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {Title} from '@angular/platform-browser';
+import {Article} from '../../models/article.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
-  template: `item page
-
-  <pre>{{item|json}}</pre>
-  `
-})
+  template: `
+    <section *ngIf="dataLoaded">
+      <h1>{{article.title}}</h1>
+      <div class="localname">{{article.subTitle}}</div>
+      <div class="intro">
+        {{article.preview}}
+      </div>
+    </section>
+    
+    <pre>{{article|json}}</pre>
+  `,
+  styleUrls: ['city-item.component.css']
+  })
 
 export class CityItemComponent implements OnInit, OnDestroy {
   componentActive = true;
-  item: any;
+  dataLoaded = false;
+  article: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,20 +56,22 @@ export class CityItemComponent implements OnInit, OnDestroy {
       this.route.root.children.forEach(route => {
         if (route.outlet === 'primary') {
           const cityAlias = route.snapshot.url[0].path;
-          this.getItem(cityAlias, itemAlias);
+          this.getArticle(cityAlias, itemAlias);
         }
       });
     });
   }
 
-  getItem(cityAlias: string, itemAlias: string) {
+  getArticle(cityAlias: string, itemAlias: string) {
     this.itemService
     .getArticle(cityAlias, itemAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      item => {
-        this.item = item;
-        const newTitle = item.title + ', ' + item.cityName;
+      article => {
+        console.log('article', article);
+        this.article = article;
+        this.dataLoaded = true;
+        const newTitle = article.title + ', ' + article.cityName;
         this.titleService.setTitle(newTitle);
       },
       error => this.errorService.handleError(error)

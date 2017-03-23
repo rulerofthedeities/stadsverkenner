@@ -18,15 +18,21 @@
   <ul class="nav nav-pills nav-stacked">
     <li routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}"
-      [ngStyle]="{display:isActive('/') ? 'block' : 'none'}">
-      <a routerLink="" (click)="toggleActive($event)">
+      [ngStyle]="{display:isActive('/' + cityAlias) ? 'block' : 'none'}">
+      <a routerLink="/{{cityAlias}}" (click)="toggleActive($event)">
         Introductie
       </a>
     </li>
     <li routerLinkActive="active"
-      [ngStyle]="{display:isActive('/steden') ? 'block' : 'none'}">
-      <a routerLink="/steden" (click)="toggleActive($event)">
-        Steden
+      [ngStyle]="{display:isActive('/' + cityAlias + '/attracties') ? 'block' : 'none'}">
+      <a routerLink="/{{cityAlias}}/attracties" (click)="toggleActive($event)">
+        Attracties
+      </a>
+    </li>
+    <li routerLinkActive="active"
+      [ngStyle]="{display:isActive('/' + cityAlias + '/kaart') ? 'block' : 'none'}">
+      <a routerLink="/{{cityAlias}}/kaart" (click)="toggleActive($event)">
+        Kaart
       </a>
     </li>
   </ul>
