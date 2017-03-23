@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 import {ErrorService} from '../../services/error.service';
 import {CityService} from '../../services/city.service';
 import {HeaderService} from '../../services/header.service';
@@ -8,21 +9,24 @@ import 'rxjs/add/operator/takeWhile';
 
 @Component({
   template: `
-  <km-sub-menu [tabs]="tabs" [cityAlias]="cityAlias"></km-sub-menu>
+  <km-sub-menu
+    [tabs]="tabs"
+    [cityAlias]="cityAlias">
+  </km-sub-menu>
   <router-outlet></router-outlet>
   `
 })
 export class CityComponent implements OnInit, OnDestroy {
   componentActive = true;
   tabs: Object = {};
-  cityData: Object = {};
   cityAlias: string;
 
   constructor(
     private errorService: ErrorService,
     private cityService: CityService,
     private headerService: HeaderService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
@@ -31,7 +35,8 @@ export class CityComponent implements OnInit, OnDestroy {
     .subscribe(
       params => {
         if (params['city']) {
-          this.getCity(params['city']);
+          this.cityAlias = params['city'];
+          this.getCity(this.cityAlias);
         }
       }
     );
@@ -43,10 +48,9 @@ export class CityComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       data => {
-        this.cityData = data;
-        this.cityAlias = data.alias.en;
+        this.titleService.setTitle(data['name']['nl']);
         this.setTabs(data.flags);
-        this.setTitle(data.name.en);
+        this.setTitle(data.name.nl);
       },
       error => this.errorService.handleError(error)
     );

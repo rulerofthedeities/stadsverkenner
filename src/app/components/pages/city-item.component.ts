@@ -1,11 +1,15 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
+import {Title} from '@angular/platform-browser';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
-  template: `item page`
+  template: `item page
+
+  <pre>{{item|json}}</pre>
+  `
 })
 
 export class CityItemComponent implements OnInit, OnDestroy {
@@ -13,30 +17,51 @@ export class CityItemComponent implements OnInit, OnDestroy {
   item: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
+    private router: Router,
     private errorService: ErrorService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params
+    this.route.params
     .takeWhile(() => this.componentActive)
     .subscribe(
       params => {
         if (params['item']) {
           console.log('item:', params['item']);
-          this.getItem(params['item']);
+          this.getCityAlias(params['item']);
         }
       }
     );
   }
 
-  getItem(itemAlias: string) {
+  getCityAlias(itemAlias: string) {
+    // Get city alias from router
+    this.router.events
+    .takeWhile(() => this.componentActive)
+    .filter(event => event instanceof NavigationEnd)
+    .subscribe(event => {
+      this.route.root.children.forEach(route => {
+        if (route.outlet === 'primary') {
+          const cityAlias = route.snapshot.url[0].path;
+          this.getItem(cityAlias, itemAlias);
+        }
+      });
+    });
+  }
+
+  getItem(cityAlias: string, itemAlias: string) {
     this.itemService
-    .getArticle('chicago', itemAlias)
+    .getArticle(cityAlias, itemAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      item => this.item = item,
+      item => {
+        this.item = item;
+        const newTitle = item.title + ', ' + item.cityName;
+        this.titleService.setTitle(newTitle);
+      },
       error => this.errorService.handleError(error)
     );
   }

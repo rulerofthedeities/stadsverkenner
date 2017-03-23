@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {GlobalService} from '../services/global.service';
 import {HeaderService} from '../services/header.service';
-import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'km-header',
@@ -16,13 +16,15 @@ import 'rxjs/add/operator/takeWhile';
 })
 export class HeaderComponent implements OnInit {
   componentActive = true;
-  title = 'Stadsverkenner';
+  title: string;
 
   constructor(
-    public headerService: HeaderService
+    private headerService: HeaderService,
+    private globalService: GlobalService
   ) {}
 
   ngOnInit() {
+    this.title = this.globalService.title;
     this.headerService.newTitle
     .takeWhile(() => this.componentActive)
     .subscribe(

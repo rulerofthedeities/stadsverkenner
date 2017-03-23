@@ -31,12 +31,13 @@ module.exports = {
         _id:0, 
         title:'$title.nl',
         alias:'$alias.nl',
-        preview:'$preview.nl'
+        preview:'$preview.nl',
+        cityName: '$city.name.nl'
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {
       response.handleError(err, res, 500, 'Error fetching articles', function(){
-        response.handleSuccess(res, docs, 200, 'Fetched articles');
+        response.handleSuccess(res, docs[0], 200, 'Fetched articles');
       });
     });
   }

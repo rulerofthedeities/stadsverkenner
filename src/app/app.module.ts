@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
@@ -35,7 +35,8 @@ import {PageNotFoundComponent} from './components/pages/page-not-found.component
     HeaderService,
     CityService,
     ItemService,
-    GlobalService
+    GlobalService,
+    Title
   ],
   declarations: [
     AppComponent,

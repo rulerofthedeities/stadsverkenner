@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 import {CityService} from '../../services/city.service';
 import {GlobalService} from '../../services/global.service';
 import {ErrorService} from '../../services/error.service';
@@ -15,10 +16,11 @@ export class CityIntroComponent implements OnInit, OnDestroy {
   imgHost: string;
 
   constructor(
-    public cityService: CityService,
-    public globalService: GlobalService,
-    public errorService: ErrorService,
-    public router: Router
+    private cityService: CityService,
+    private globalService: GlobalService,
+    private errorService: ErrorService,
+    private titleService: Title,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,7 +34,10 @@ export class CityIntroComponent implements OnInit, OnDestroy {
     .getCityData(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      data => {this.city = data; },
+      data => {
+        this.city = data;
+        this.titleService.setTitle(data['name']['nl']);
+      },
       error => this.errorService.handleError(error)
     );
   }

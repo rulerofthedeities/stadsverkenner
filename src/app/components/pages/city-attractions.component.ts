@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 import {ItemService} from '../../services/item.service';
 import {GlobalService} from '../../services/global.service';
 import {ErrorService} from '../../services/error.service';
@@ -19,17 +20,21 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
   imgHost: string;
 
   constructor(
-    public itemService: ItemService,
-    public cityService: CityService,
-    public globalService: GlobalService,
-    public errorService: ErrorService,
-    public route: ActivatedRoute,
-    public router: Router
+    private itemService: ItemService,
+    private cityService: CityService,
+    private globalService: GlobalService,
+    private errorService: ErrorService,
+    private titleService: Title,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.fetchImageHost();
+    this.imgHost = this.globalService.imageHost;
+    this.getCityAlias();
+  }
 
+  getCityAlias() {
     // Get city alias from router
     this.router.events
     .takeWhile(() => this.componentActive)
@@ -50,7 +55,10 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
     .getCity(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      data => {this.city = data; console.log('city', data); },
+      data => {
+        this.city = data; console.log('city', data);
+        this.titleService.setTitle('Bezienswaardigheden in ' + data['name']['nl']);
+      },
       error => this.errorService.handleError(error)
     );
   }
@@ -63,10 +71,6 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
       articles => {this.articles = articles; console.log('articles', articles); },
       error => this.errorService.handleError(error)
     );
-  }
-
-  fetchImageHost() {
-    this.imgHost = this.globalService.imageHost;
   }
 
   processHtml(html: string) {
