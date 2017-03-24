@@ -25,13 +25,13 @@
     </li>
     <li routerLinkActive="active"
       [ngStyle]="{display:isActive('/' + cityAlias + '/attracties') ? 'block' : 'none'}">
-      <a routerLink="/{{cityAlias}}/attracties" (click)="toggleActive($event)">
+      <a routerLink="attracties" (click)="toggleActive($event)">
         Attracties
       </a>
     </li>
     <li routerLinkActive="active"
       [ngStyle]="{display:isActive('/' + cityAlias + '/kaart') ? 'block' : 'none'}">
-      <a routerLink="/{{cityAlias}}/kaart" (click)="toggleActive($event)">
+      <a routerLink="kaart" (click)="toggleActive($event)">
         Kaart
       </a>
     </li>

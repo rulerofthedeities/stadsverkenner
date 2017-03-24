@@ -5,7 +5,10 @@ import {CityComponent} from './components/pages/city.component';
 import {CityIntroComponent} from './components/pages/city-intro.component';
 import {CityAttractionsComponent} from './components/pages/city-attractions.component';
 import {CityMapComponent} from './components/pages/city-map.component';
-import {CityItemComponent} from './components/pages/city-item.component';
+import {ItemComponent} from './components/pages/item.component';
+import {ItemInfoComponent} from './components/pages/item-info.component';
+import {ItemLocationComponent} from './components/pages/item-location.component';
+import {ItemPhotosComponent} from './components/pages/item-photos.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 
 export const routes: Routes = [
@@ -17,7 +20,15 @@ export const routes: Routes = [
     children: [
       {path: '', component: CityIntroComponent},
       {path: 'attracties', component: CityAttractionsComponent},
-      {path: 'attracties/:item', component: CityItemComponent},
+      {
+        path: 'attracties/:item',
+        component: ItemComponent,
+        children: [
+          {path: '', component: ItemInfoComponent},
+          {path: 'ligging', component: ItemLocationComponent},
+          {path: 'fotos', component: ItemPhotosComponent}
+        ]
+      },
       {path: 'kaart', component: CityMapComponent}
     ]
   },

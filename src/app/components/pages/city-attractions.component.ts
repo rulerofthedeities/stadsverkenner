@@ -35,7 +35,6 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
   }
 
   getCityAlias() {
-    // Get city alias from router
     this.router.events
     .takeWhile(() => this.componentActive)
     .filter(event => event instanceof NavigationEnd)

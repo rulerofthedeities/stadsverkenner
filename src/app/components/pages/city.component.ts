@@ -5,14 +5,15 @@ import {ErrorService} from '../../services/error.service';
 import {CityService} from '../../services/city.service';
 import {HeaderService} from '../../services/header.service';
 import {Flags} from '../../models/city.model';
+import {City} from '../../models/city.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
   template: `
-  <km-sub-menu
+  <km-city-menu
     [tabs]="tabs"
     [cityAlias]="cityAlias">
-  </km-sub-menu>
+  </km-city-menu>
   <router-outlet></router-outlet>
   `
 })
@@ -36,21 +37,21 @@ export class CityComponent implements OnInit, OnDestroy {
       params => {
         if (params['city']) {
           this.cityAlias = params['city'];
-          this.getCity(this.cityAlias);
+          this.fetchCityData(this.cityAlias);
         }
       }
     );
   }
 
-  getCity(cityAlias: string) {
+  fetchCityData(cityAlias: string) {
     this.cityService
     .getCity(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      data => {
-        this.titleService.setTitle(data['name']['nl']);
-        this.setTabs(data.flags);
-        this.setTitle(data.name.nl);
+      cityData => {
+        this.titleService.setTitle(cityData['name']['nl']);
+        this.setTabs(cityData.flags);
+        this.setTitle(cityData.name.nl);
       },
       error => this.errorService.handleError(error)
     );

@@ -4,6 +4,7 @@ var response = require('../response'),
 
 module.exports = {
   getArticles: function(req, res) {
+    console.log('fetching articles');
     cityAlias = req.params.city;
     const pipeline = [
       {$match:{'city.alias.nl': cityAlias, 'isPublished.nl':true}},
@@ -22,7 +23,8 @@ module.exports = {
       });
     });
   },
-  getArticle: function(req, res) {
+  getArticleHeader: function(req, res) {
+    console.log('fetching article');
     cityAlias = req.params.city;
     itemAlias = req.params.item;
     const pipeline = [
@@ -33,7 +35,9 @@ module.exports = {
         subTitle: '$subTitle.nl',
         alias:'$alias.nl',
         preview:'$preview.nl',
-        cityName: '$city.name.nl'
+        cityName: '$city.name.nl',
+        hasPos: {$gt: ["$pos", null]},
+        photoCount: {$size: '$photos'}
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {

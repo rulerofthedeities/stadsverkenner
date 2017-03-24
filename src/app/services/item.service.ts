@@ -3,6 +3,7 @@ import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ItemService {
@@ -11,9 +12,9 @@ export class ItemService {
     private http: Http
   ) {}
 
-  getArticle(cityAlias: string, itemAlias: string) {
+  getArticleHead(cityAlias: string, itemAlias: string) {
     return this.http
-    .get('/api/article/' + cityAlias + '/' + itemAlias)
+    .get('/api/articleHead/' + cityAlias + '/' + itemAlias)
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }

@@ -26,7 +26,7 @@ abstract class Menu {
 
 @Component({
   selector: 'km-main-menu',
-  templateUrl: './main-menu.component.html',
+  templateUrl: './menu-main.component.html',
   styleUrls: ['./menu.css']
 })
 
@@ -42,14 +42,34 @@ export class MainMenuComponent extends Menu {
 
 
 @Component({
-  selector: 'km-sub-menu',
-  templateUrl: 'sub-menu.component.html',
+  selector: 'km-city-menu',
+  templateUrl: 'menu-city.component.html',
   styleUrls: ['./menu.css']
 })
 
-export class SubMenuComponent extends Menu {
+export class CityMenuComponent extends Menu {
   @Input() tabs;
   @Input() cityAlias;
+
+  constructor (
+    router: Router,
+    route: ActivatedRoute
+  ) {
+    super(router, route);
+  }
+
+}
+
+@Component({
+  selector: 'km-item-menu',
+  templateUrl: 'menu-item.component.html',
+  styleUrls: ['./menu.css']
+})
+
+export class ItemMenuComponent extends Menu {
+  @Input() tabs;
+  @Input() cityAlias;
+  @Input() itemAlias;
 
   constructor (
     router: Router,

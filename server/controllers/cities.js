@@ -17,7 +17,13 @@ module.exports = {
   },
   getCity: function(req, res) {
     cityAlias = req.params.city;
-    City.findOne({'alias.nl':cityAlias}, {alias:'$alias.nl', name:'$name.nl', flags:1, icon:'$icon.fileName'}, function(err, doc) {
+    console.log('fetching city');
+    City.findOne({'alias.nl':cityAlias}, {
+      alias:'$alias.nl', 
+      name:'$name.nl', 
+      flags:1, 
+      icon:'$icon.fileName'
+    }, function(err, doc) {
       response.handleError(err, res, 500, 'Error fetching city', function(){
         response.handleSuccess(res, doc, 200, 'Fetched city');
       });
@@ -25,6 +31,7 @@ module.exports = {
   },
   getCityData: function(req, res) {
     cityAlias = req.params.city;
+    console.log('fetching city data');
     City.findOne({'alias.nl':cityAlias}, function(err, doc) {
       response.handleError(err, res, 500, 'Error fetching city', function(){
         response.handleSuccess(res, doc, 200, 'Fetched city');

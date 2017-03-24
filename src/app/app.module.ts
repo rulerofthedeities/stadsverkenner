@@ -12,7 +12,7 @@ import {ErrorService} from './services/error.service';
 import {GlobalService} from './services/global.service';
 
 import {AppComponent} from './components/app.component';
-import {MainMenuComponent, SubMenuComponent} from './components/menu.component';
+import {MainMenuComponent, CityMenuComponent, ItemMenuComponent} from './components/menu.component';
 import {HeaderComponent} from './components/header.component';
 import {FooterComponent} from './components/footer.component';
 import {CitiesComponent} from './components/pages/cities.component';
@@ -20,7 +20,10 @@ import {CityComponent} from './components/pages/city.component';
 import {CityIntroComponent} from './components/pages/city-intro.component';
 import {CityAttractionsComponent} from './components/pages/city-attractions.component';
 import {CityMapComponent} from './components/pages/city-map.component';
-import {CityItemComponent} from './components/pages/city-item.component';
+import {ItemComponent} from './components/pages/item.component';
+import {ItemInfoComponent} from './components/pages/item-info.component';
+import {ItemLocationComponent} from './components/pages/item-location.component';
+import {ItemPhotosComponent} from './components/pages/item-photos.component';
 import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 
@@ -48,9 +51,13 @@ import {PageNotFoundComponent} from './components/pages/page-not-found.component
     CityIntroComponent,
     CityAttractionsComponent,
     CityMapComponent,
-    CityItemComponent,
+    ItemComponent,
+    ItemInfoComponent,
+    ItemLocationComponent,
+    ItemPhotosComponent,
     MainMenuComponent,
-    SubMenuComponent,
+    CityMenuComponent,
+    ItemMenuComponent,
     PageNotFoundComponent
   ],
   bootstrap: [AppComponent]

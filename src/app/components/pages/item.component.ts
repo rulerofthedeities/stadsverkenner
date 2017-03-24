@@ -5,26 +5,36 @@ import {ErrorService} from '../../services/error.service';
 import {Title} from '@angular/platform-browser';
 import {Article} from '../../models/article.model';
 import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/operator/filter';
 
 @Component({
   template: `
-    <section *ngIf="dataLoaded">
-      <h1>{{article.title}}</h1>
-      <div class="localname">{{article.subTitle}}</div>
-      <div class="intro">
-        {{article.preview}}
-      </div>
-    </section>
-    
-    <pre>{{article|json}}</pre>
-  `,
-  styleUrls: ['city-item.component.css']
-  })
+  <section *ngIf="dataLoaded">
+    <h1>{{article.title}}</h1>
+    <div class="localname">{{article.subTitle}}</div>
+    <div class="intro">
+      {{article.preview}}
+    </div>
+  </section>
+  
+  <km-item-menu
+    [tabs]="tabs"
+    [itemAlias]="itemAlias"
+    [cityAlias]="cityAlias">
+  </km-item-menu>
 
-export class CityItemComponent implements OnInit, OnDestroy {
+  <pre>{{article|json}}</pre>
+  <router-outlet></router-outlet>
+  `,
+  styleUrls: ['item.component.css']
+})
+export class ItemComponent implements OnInit, OnDestroy {
   componentActive = true;
   dataLoaded = false;
-  article: any;
+  tabs: Object = {};
+  cityAlias: string;
+  itemAlias: string;
+  article: Article;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,9 +49,10 @@ export class CityItemComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       params => {
+        console.log('params', params);
         if (params['item']) {
-          console.log('item:', params['item']);
-          this.getCityAlias(params['item']);
+          this.itemAlias = params['item'];
+          this.getCityAlias(this.itemAlias);
         }
       }
     );
@@ -55,8 +66,9 @@ export class CityItemComponent implements OnInit, OnDestroy {
     .subscribe(event => {
       this.route.root.children.forEach(route => {
         if (route.outlet === 'primary') {
-          const cityAlias = route.snapshot.url[0].path;
-          this.getArticle(cityAlias, itemAlias);
+          this.cityAlias = route.snapshot.url[0].path;
+          console.log('getting article');
+          this.getArticle(this.cityAlias, itemAlias);
         }
       });
     });
@@ -64,7 +76,7 @@ export class CityItemComponent implements OnInit, OnDestroy {
 
   getArticle(cityAlias: string, itemAlias: string) {
     this.itemService
-    .getArticle(cityAlias, itemAlias)
+    .getArticleHead(cityAlias, itemAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
       article => {
@@ -73,9 +85,18 @@ export class CityItemComponent implements OnInit, OnDestroy {
         this.dataLoaded = true;
         const newTitle = article.title + ', ' + article.cityName;
         this.titleService.setTitle(newTitle);
+        this.setTabs();
       },
       error => this.errorService.handleError(error)
     );
+  }
+
+  setTabs() {
+    this.tabs = {
+      'info' : true,
+      'location' : this.article.hasPos,
+      'photos' : this.article.photoCount > 0
+    };
   }
 
   ngOnDestroy() {

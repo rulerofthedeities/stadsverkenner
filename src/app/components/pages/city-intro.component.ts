@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {CityService} from '../../services/city.service';
 import {GlobalService} from '../../services/global.service';
@@ -20,7 +20,8 @@ export class CityIntroComponent implements OnInit, OnDestroy {
     private globalService: GlobalService,
     private errorService: ErrorService,
     private titleService: Title,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
