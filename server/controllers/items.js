@@ -4,7 +4,6 @@ var response = require('../response'),
 
 module.exports = {
   getArticles: function(req, res) {
-    console.log('fetching articles');
     cityAlias = req.params.city;
     const pipeline = [
       {$match:{'city.alias.nl': cityAlias, 'isPublished.nl':true}},
@@ -24,7 +23,6 @@ module.exports = {
     });
   },
   getArticleHeader: function(req, res) {
-    console.log('fetching article');
     cityAlias = req.params.city;
     itemAlias = req.params.item;
     const pipeline = [
