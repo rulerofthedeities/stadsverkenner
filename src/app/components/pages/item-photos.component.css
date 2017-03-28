@@ -18,6 +18,9 @@
   width: 100px;
   height: 100px;
 }
+.sel img{
+  border: 1px solid red;
+}
 .bar {
   margin-top: 4px;
 }

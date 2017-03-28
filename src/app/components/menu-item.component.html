@@ -15,24 +15,21 @@
 </nav>
 
 <nav class="mainnav mobile" *ngIf="tabs">
-  <ul class="nav nav-pills nav-stacked">
+  <ul class="nav nav-pills">
     <li routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}"
-      [ngStyle]="{display:isActive('/' + cityAlias) ? 'block' : 'none'}">
-      <a routerLink="/{{cityAlias}}" (click)="toggleActive($event)">
-        Info
+      [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/{{cityAlias}}/attracties/{{itemAlias}}" (click)="toggleActive($event)">
+        <span class="fa fa-info-circle"></span>
       </a>
     </li>
-    <li routerLinkActive="active"
-      [ngStyle]="{display:isActive('/' + cityAlias + '/' + itemAlias + '/ligging') ? 'block' : 'none'}">
+    <li routerLinkActive="active">
       <a routerLink="ligging" (click)="toggleActive($event)">
-        Ligging
+        <span class="fa fa-map-marker"></span>
       </a>
     </li>
-    <li routerLinkActive="active"
-      [ngStyle]="{display:isActive('/' + cityAlias + '/' + itemAlias + '/fotos') ? 'block' : 'none'}">
+    <li routerLinkActive="active">
       <a routerLink="fotos" (click)="toggleActive($event)">
-        Foto's
+        <span class="fa fa-picture-o"></span>
       </a>
     </li>
   </ul>

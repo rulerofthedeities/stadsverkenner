@@ -16,7 +16,7 @@ import 'rxjs/add/operator/filter';
     </div>
     <div class="bar"></div>
     <div class="text-center">
-      <div *ngFor="let photo of photos; let i=index;" class="thumb">
+      <div *ngFor="let photo of photos; let i=index;" class="thumb" [ngClass]="{sel:current===i}">
         <img src="{{imgPath}}{{photo}}tsq.jpg" alt="Foto thumb # {{i+1}}" (click)="selectPhoto(i)">
       </div>
     </div>

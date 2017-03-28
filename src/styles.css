@@ -17,3 +17,7 @@ body {
   border:1px solid #538f18;
   z-index:-2;
 }
+
+.fa.r {
+  margin-right: 4px;
+}

@@ -63,7 +63,6 @@ module.exports = {
   getArticlePhotos: function(req, res) {
     cityAlias = req.params.city;
     itemAlias = req.params.item;
-    console.log(cityAlias, itemAlias);
     const pipeline = [
       {$match:{'city.alias.nl': cityAlias, 'alias.nl': itemAlias, 'isPublished.nl':true}},
       {$project:{
