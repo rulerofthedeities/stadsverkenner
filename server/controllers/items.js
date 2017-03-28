@@ -69,7 +69,9 @@ module.exports = {
         _id: 0,
         path: '$city.alias.en',
         pos: '$pos',
-        address: '$address.nl'
+        img: '$img.thumb',
+        address: '$address.nl',
+        title: '$title.nl'
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {

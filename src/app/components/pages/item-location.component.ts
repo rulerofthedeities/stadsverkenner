@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {GlobalService} from '../../services/global.service';
+import {Marker} from '../../models/map.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
@@ -12,12 +13,24 @@ import 'rxjs/add/operator/takeWhile';
       {{line}}
     </div>
 
-    <sebm-google-map 
-    [longitude]="location[0]"
-    [latitude]="location[1]"
-    [zoom]="zoom">
+    <div class="map">
+      <sebm-google-map 
+      [longitude]="location[0]"
+      [latitude]="location[1]"
+      [zoom]="zoom">
 
-    </sebm-google-map>
+      <sebm-google-map-marker 
+        [longitude]="location[0]"
+        [latitude]="location[1]"
+        [iconUrl]="imgPath + img + '.jpg'"
+        [markerDraggable]="false">
+        <sebm-google-map-info-window>
+            <p>{{title}}</p>
+        </sebm-google-map-info-window>
+      </sebm-google-map-marker>
+
+      </sebm-google-map>
+    </div>
 
   </div>
 
@@ -25,6 +38,10 @@ import 'rxjs/add/operator/takeWhile';
   styles: [`
     .sebm-google-map-container {
       height: 600px;
+    }
+    .map {
+      border: 1px solid #538f18;
+      margin: 2px 0 4px 0;
     }
   `]
 })
@@ -34,7 +51,9 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
   imgPath: string;
   address: string;
   location: any;
-  zoom = 12;
+  zoom = 13;
+  img: string;
+  title: string;
   
   constructor(
     private router: Router,
@@ -58,10 +77,14 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       locationData => {
+        console.log('location data', locationData);
         this.location = locationData.pos.coordinates;
-        console.log('location data', locationData, this.location.length);
+        this.title = locationData.title;
         if (locationData.address) {
           this.address = locationData.address.split(';');
+        }
+        if(locationData.img) {
+          this.img = locationData.img;
         }
         this.imgPath = this.globalService.imageHost + '/img/' + locationData.path + '/';
         this.dataLoaded = true;
