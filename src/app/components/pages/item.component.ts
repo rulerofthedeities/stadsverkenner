@@ -13,17 +13,16 @@ import 'rxjs/add/operator/filter';
     <h1>{{article.title}}</h1>
     <div class="localname">{{article.subTitle}}</div>
     <div class="intro">
-      {{article.preview}}
+      <div [innerHTML]="article.preview | sanitizeHtml"></div>
     </div>
+    <km-item-menu
+      [tabs]="tabs"
+      [itemAlias]="article.alias"
+      [cityAlias]="cityAlias"
+      [photoCount]="article.photoCount">
+    </km-item-menu>
   </section>
   
-  <km-item-menu
-    [tabs]="tabs"
-    [itemAlias]="itemAlias"
-    [cityAlias]="cityAlias">
-  </km-item-menu>
-
-  <pre>{{article|json}}</pre>
   <router-outlet></router-outlet>
   `,
   styleUrls: ['item.component.css']
@@ -33,7 +32,6 @@ export class ItemComponent implements OnInit, OnDestroy {
   dataLoaded = false;
   tabs: Object = {};
   cityAlias: string;
-  itemAlias: string;
   article: Article;
 
   constructor(
@@ -49,38 +47,34 @@ export class ItemComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       params => {
-        console.log('params', params);
         if (params['item']) {
-          this.itemAlias = params['item'];
-          this.getCityAlias(this.itemAlias);
+          this.getRouterData(params['item']);
         }
       }
     );
   }
 
-  getCityAlias(itemAlias: string) {
+  getRouterData(itemAlias: string) {
     // Get city alias from router
     this.router.events
-    .takeWhile(() => this.componentActive)
+    .takeWhile(() => this.componentActive && !this.dataLoaded)
     .filter(event => event instanceof NavigationEnd)
     .subscribe(event => {
       this.route.root.children.forEach(route => {
         if (route.outlet === 'primary') {
           this.cityAlias = route.snapshot.url[0].path;
-          console.log('getting article');
-          this.getArticle(this.cityAlias, itemAlias);
+          this.getArticleData(this.cityAlias, itemAlias);
         }
       });
     });
   }
 
-  getArticle(cityAlias: string, itemAlias: string) {
+  getArticleData(cityAlias: string, itemAlias: string) {
     this.itemService
     .getArticleHead(cityAlias, itemAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
       article => {
-        console.log('article', article);
         this.article = article;
         this.dataLoaded = true;
         const newTitle = article.title + ', ' + article.cityName;

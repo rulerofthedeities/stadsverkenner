@@ -27,6 +27,8 @@ import {ItemPhotosComponent} from './components/pages/item-photos.component';
 import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 
+import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import {PageNotFoundComponent} from './components/pages/page-not-found.component
     MainMenuComponent,
     CityMenuComponent,
     ItemMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SanitizeHtmlPipe
   ],
   bootstrap: [AppComponent]
 })

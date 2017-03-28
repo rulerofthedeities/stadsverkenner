@@ -12,17 +12,32 @@ export class ItemService {
     private http: Http
   ) {}
 
-  getArticleHead(cityAlias: string, itemAlias: string) {
-    return this.http
-    .get('/api/articleHead/' + cityAlias + '/' + itemAlias)
-    .map(response => response.json().obj)
-    .catch(error => Observable.throw(error));
-  }
-
   getArticles(cityAlias: string) {
     return this.http
     .get('/api/articles/' + cityAlias)
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }
+
+  getArticleHead(cityAlias: string, itemAlias: string) {
+    return this.http
+    .get('/api/article/head/' + cityAlias + '/' + itemAlias)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
+  getArticleInfo(cityAlias: string, itemAlias: string) {
+    return this.http
+    .get('/api/article/info/' + cityAlias + '/' + itemAlias)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
+  getArticlePhotos(cityAlias: string, itemAlias: string) {
+    return this.http
+    .get('/api/article/photos/' + cityAlias + '/' + itemAlias)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
 }

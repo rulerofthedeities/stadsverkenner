@@ -70,6 +70,7 @@ export class ItemMenuComponent extends Menu {
   @Input() tabs;
   @Input() cityAlias;
   @Input() itemAlias;
+  @Input() photoCount;
 
   constructor (
     router: Router,

@@ -1,0 +1,29 @@
+.photoWrapper {
+  border: 1px solid #538f18;
+  background-color: black;
+  padding: 2px;
+  height: 446px;
+}
+.photo img {
+  cursor: pointer;
+  max-height: 440px;
+  max-width: 100%;
+}
+.thumb {
+  display:inline-block;
+}
+.thumb img {
+  border: 1px solid #538f18;
+  margin: 1px;
+  width: 100px;
+  height: 100px;
+}
+.bar {
+  margin-top: 4px;
+}
+
+@media screen and (max-width:768px) {
+  .photoWrapper {
+    height: initial;
+  }
+}
