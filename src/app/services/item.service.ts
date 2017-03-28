@@ -33,6 +33,13 @@ export class ItemService {
     .catch(error => Observable.throw(error));
   }
 
+  getArticleLocation(cityAlias: string, itemAlias: string) {
+    return this.http
+    .get('/api/article/location/' + cityAlias + '/' + itemAlias)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
   getArticlePhotos(cityAlias: string, itemAlias: string) {
     return this.http
     .get('/api/article/photos/' + cityAlias + '/' + itemAlias)

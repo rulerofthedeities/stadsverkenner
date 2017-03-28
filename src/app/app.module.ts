@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
+import {AgmCoreModule} from 'angular2-google-maps/core';
 
-import {routes} from './routes';
+import {routes} from './app.routes';
 
 import {CityService} from './services/city.service';
 import {ItemService} from './services/item.service';
@@ -28,12 +29,16 @@ import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 
 import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
+import {APPCONFIG} from './app.config';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AgmCoreModule.forRoot({
+      apiKey: APPCONFIG.mapApi
+    })
   ],
   providers: [
     ErrorService,

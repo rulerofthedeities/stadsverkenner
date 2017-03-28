@@ -9,6 +9,7 @@ module.exports.initialize = function(app, router) {
   router.get('/citydata/:city', cities.getCityData);
   router.get('/article/head/:city/:item', items.getArticleHeader);
   router.get('/article/info/:city/:item', items.getArticleInfo);
+  router.get('/article/location/:city/:item', items.getArticleLocation);
   router.get('/article/photos/:city/:item', items.getArticlePhotos);
   router.get('/articles/:city', items.getArticles);
 

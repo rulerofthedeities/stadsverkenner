@@ -4,24 +4,9 @@ import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {GlobalService} from '../../services/global.service';
 import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/filter';
 
 @Component({
-  template: `
-  <section *ngIf="dataLoaded">
-    <div class="photoWrapper">
-      <div class="photo text-center">
-        <img src="{{imgPath}}{{photos[current]}}s.jpg" alt="Foto #{{current + 1}}" (click)="nextPhoto(current)">
-      </div>
-    </div>
-    <div class="bar"></div>
-    <div class="text-center">
-      <div *ngFor="let photo of photos; let i=index;" class="thumb" [ngClass]="{sel:current===i}">
-        <img src="{{imgPath}}{{photo}}tsq.jpg" alt="Foto thumb # {{i+1}}" (click)="selectPhoto(i)">
-      </div>
-    </div>
-  </section>
-  `,
+  templateUrl: 'item-photos.component.html',
   styleUrls: ['item-photos.component.css']
 })
 export class ItemPhotosComponent implements OnInit, OnDestroy {
