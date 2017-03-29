@@ -51,6 +51,7 @@ module.exports = {
       {$match:{'city.alias.nl': cityAlias, 'alias.nl': itemAlias, 'isPublished.nl':true}},
       {$project:{
         _id:0,
+        path: '$city.alias.en',
         content:'$content.en'
       }}
     ];

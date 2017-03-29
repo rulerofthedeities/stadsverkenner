@@ -27,6 +27,7 @@ import {ItemLocationComponent} from './components/pages/item-location.component'
 import {ItemPhotosComponent} from './components/pages/item-photos.component';
 import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
+import {PictureModalComponent} from './components/modals/picture-modal.component';
 
 import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
 import {APPCONFIG} from './app.config';
@@ -66,6 +67,7 @@ import {APPCONFIG} from './app.config';
     CityMenuComponent,
     ItemMenuComponent,
     PageNotFoundComponent,
+    PictureModalComponent,
     SanitizeHtmlPipe
   ],
   bootstrap: [AppComponent]

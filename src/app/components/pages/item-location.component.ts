@@ -19,15 +19,15 @@ import 'rxjs/add/operator/takeWhile';
       [latitude]="location[1]"
       [zoom]="zoom">
 
-      <sebm-google-map-marker 
-        [longitude]="location[0]"
-        [latitude]="location[1]"
-        [iconUrl]="imgPath + img + '.jpg'"
-        [markerDraggable]="false">
-        <sebm-google-map-info-window>
+        <sebm-google-map-marker 
+          [longitude]="location[0]"
+          [latitude]="location[1]"
+          [iconUrl]="imgPath + img + '.jpg'"
+          [markerDraggable]="false">
+          <sebm-google-map-info-window>
             <p>{{title}}</p>
-        </sebm-google-map-info-window>
-      </sebm-google-map-marker>
+          </sebm-google-map-info-window>
+        </sebm-google-map-marker>
 
       </sebm-google-map>
     </div>
@@ -54,7 +54,7 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
   zoom = 13;
   img: string;
   title: string;
-  
+
   constructor(
     private router: Router,
     private itemService: ItemService,
@@ -83,7 +83,7 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
         if (locationData.address) {
           this.address = locationData.address.split(';');
         }
-        if(locationData.img) {
+        if (locationData.img) {
           this.img = locationData.img;
         }
         this.imgPath = this.globalService.imageHost + '/img/' + locationData.path + '/';

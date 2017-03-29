@@ -1,0 +1,38 @@
+.modal {
+  display: block;
+  background-color: rgb(0, 0, 0);
+  /* RGBa with 0.6 opacity */
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.hide {
+  display: none;
+}
+.photo {
+  max-width: 100%;
+}
+.modal-body {
+  padding: 0;
+}
+.modal-dialog {
+  position: relative;
+  display: table;
+  overflow-y: auto;    
+  overflow-x: auto;
+  width: auto;
+  min-width: 300px;   
+}
+.close {
+  color: white;
+  margin-right: 6px;
+}
+figure {
+  display: table;
+  margin: 0px;
+}
+figcaption {
+  background-color: black;
+  color: white;
+  display: table-caption;
+  caption-side: top;
+  text-align: center;
+}

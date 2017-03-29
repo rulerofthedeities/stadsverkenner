@@ -14,9 +14,10 @@
 }
 .thumb img {
   border: 1px solid #538f18;
+  cursor: pointer;
+  height: 100px;
   margin: 1px;
   width: 100px;
-  height: 100px;
 }
 .sel img{
   border: 1px solid red;
