@@ -17,7 +17,7 @@ import 'rxjs/add/operator/filter';
     </div>
     <km-item-menu
       [tabs]="tabs"
-      [itemAlias]="article.alias"
+      [itemAlias]="itemAlias"
       [cityAlias]="cityAlias"
       [photoCount]="article.photoCount">
     </km-item-menu>
@@ -28,6 +28,7 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['item.component.css']
 })
 export class ItemComponent implements OnInit, OnDestroy {
+  itemAlias: string;
   componentActive = true;
   dataLoaded = false;
   tabs: Object = {};
@@ -47,26 +48,13 @@ export class ItemComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       params => {
-        if (params['item']) {
-          this.getRouterData(params['item']);
+        if (params['item'] && this.itemAlias !== params['item']) {
+          this.itemAlias = params['item'];
+          this.cityAlias = this.router.url.split('/')[1];
+          this.getArticleData(this.cityAlias, this.itemAlias);
         }
       }
     );
-  }
-
-  getRouterData(itemAlias: string) {
-    // Get city alias from router
-    this.router.events
-    .takeWhile(() => this.componentActive && !this.dataLoaded)
-    .filter(event => event instanceof NavigationEnd)
-    .subscribe(event => {
-      this.route.root.children.forEach(route => {
-        if (route.outlet === 'primary') {
-          this.cityAlias = route.snapshot.url[0].path;
-          this.getArticleData(this.cityAlias, itemAlias);
-        }
-      });
-    });
   }
 
   getArticleData(cityAlias: string, itemAlias: string) {

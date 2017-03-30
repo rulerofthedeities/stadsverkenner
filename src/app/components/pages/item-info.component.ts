@@ -15,7 +15,8 @@ import 'rxjs/add/operator/filter';
     <div [innerHTML]="article | sanitizeHtml" class="content" (click)="onClick($event, modal)"></div>
   </section>
   <km-picture-modal #modal></km-picture-modal>
-  `
+  `,
+  styleUrls: ['item-info.component.css']
 })
 export class ItemInfoComponent implements OnInit, OnDestroy {
   private componentActive = true;
@@ -33,31 +34,23 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.getRouterData();
+    /*
     this.route.params
     .takeWhile(() => this.componentActive)
     .subscribe(
       params => {
-        console.log('params', params);
         if (params['item']) {
           this.getRouterData(params['item']);
         }
       }
     );
+    */
   }
 
-  getRouterData(itemAlias: string) {
-    // Get city alias from router
-    this.router.events
-    .takeWhile(() => this.componentActive && !this.dataLoaded)
-    .filter(event => event instanceof NavigationEnd)
-    .subscribe(event => {
-      this.route.root.children.forEach(route => {
-        if (route.outlet === 'primary') {
-          this.cityAlias = route.snapshot.url[0].path;
-          this.getArticleData(this.cityAlias, itemAlias);
-        }
-      });
-    });
+  getRouterData() {
+    const paths = this.router.url.split('/');
+    this.getArticleData(paths[1], paths[3]);
   }
 
   getArticleData(cityAlias, itemAlias) {
@@ -75,19 +68,28 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
   }
 
   processData(content: string): string {
-    const imgPath = this.globalService.imageHost + '/img/',
-          processedContent = content.replace(/..\/img\//ig, imgPath);
+    const imgPath = this.globalService.imageHost + '/img/';
+    let processedContent = content.replace(/\.\.\/img\//ig, imgPath); // relative path
+    processedContent = content.replace(/\"\/img\//ig, '"' + imgPath); // fixed path
+    processedContent = content.replace(/href=\"/ig, 'data-href="'); 
+    //console.log(processedContent);
     return processedContent;
   }
 
   onClick($event: any, modal: PictureModalComponent) {
     if ($event.target) {
+      console.log($event.target);
       const alt = $event.target.alt;
       const imgId = $event.target.dataset.lnk;
       if (imgId) {
         modal.title = alt;
         modal.imgUrl = this.globalService.imageHost + '/img/' + this.path + '/' + imgId + 's.jpg';
         modal.showModal = true;
+      }
+      const hrefId = $event.target.dataset.href;
+      if (hrefId) {
+        console.log('linking to', hrefId, this.route);
+        this.router.navigate(['../../' + hrefId], { relativeTo: this.route });
       }
     }
   }

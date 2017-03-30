@@ -52,7 +52,7 @@ module.exports = {
       {$project:{
         _id:0,
         path: '$city.alias.en',
-        content:'$content.en'
+        content:'$content.nl'
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {

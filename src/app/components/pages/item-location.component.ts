@@ -77,7 +77,6 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       locationData => {
-        console.log('location data', locationData);
         this.location = locationData.pos.coordinates;
         this.title = locationData.title;
         if (locationData.address) {
