@@ -34,23 +34,15 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getRouterData();
-    /*
+    // Check for route changes in case link in article is clicked
     this.route.params
     .takeWhile(() => this.componentActive)
     .subscribe(
-      params => {
-        if (params['item']) {
-          this.getRouterData(params['item']);
-        }
+      () => {
+        const paths = this.router.url.split('/');
+        this.getArticleData(paths[1], paths[3]);
       }
     );
-    */
-  }
-
-  getRouterData() {
-    const paths = this.router.url.split('/');
-    this.getArticleData(paths[1], paths[3]);
   }
 
   getArticleData(cityAlias, itemAlias) {
@@ -59,21 +51,12 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       article => {
-        this.article = this.processData(article.content);
-        this.path = this.processData(article.path);
+        this.article = this.itemService.processData(article.content);
+        this.path = article.path;
         this.dataLoaded = true;
       },
       error => this.errorService.handleError(error)
     );
-  }
-
-  processData(content: string): string {
-    const imgPath = this.globalService.imageHost + '/img/';
-    let processedContent = content.replace(/\.\.\/img\//ig, imgPath); // relative path
-    processedContent = content.replace(/\"\/img\//ig, '"' + imgPath); // fixed path
-    processedContent = content.replace(/href=\"/ig, 'data-href="'); 
-    //console.log(processedContent);
-    return processedContent;
   }
 
   onClick($event: any, modal: PictureModalComponent) {

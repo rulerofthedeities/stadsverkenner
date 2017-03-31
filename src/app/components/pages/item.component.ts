@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
+import {GlobalService} from '../../services/global.service';
 import {Title} from '@angular/platform-browser';
 import {Article} from '../../models/article.model';
 import 'rxjs/add/operator/takeWhile';
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/filter';
     <h1>{{article.title}}</h1>
     <div class="localname">{{article.subTitle}}</div>
     <div class="intro">
-      <div [innerHTML]="article.preview | sanitizeHtml"></div>
+      <div [innerHTML]="preview | sanitizeHtml" (click)="onClick($event)"></div>
     </div>
     <km-item-menu
       [tabs]="tabs"
@@ -28,19 +29,21 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['item.component.css']
 })
 export class ItemComponent implements OnInit, OnDestroy {
+  article: Article;
   itemAlias: string;
   componentActive = true;
   dataLoaded = false;
   tabs: Object = {};
   cityAlias: string;
-  article: Article;
+  preview: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private errorService: ErrorService,
     private itemService: ItemService,
-    private titleService: Title
+    private titleService: Title,
+    private globalService: GlobalService
   ) {}
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     .subscribe(
       article => {
         this.article = article;
+        this.preview = this.itemService.processData(article.preview);
         this.dataLoaded = true;
         const newTitle = article.title + ', ' + article.cityName;
         this.titleService.setTitle(newTitle);
@@ -79,6 +83,16 @@ export class ItemComponent implements OnInit, OnDestroy {
       'location' : this.article.hasPos,
       'photos' : this.article.photoCount > 0
     };
+  }
+
+  onClick($event: any) {
+    if ($event.target) {
+      const hrefId = $event.target.dataset.href;
+      if (hrefId) {
+        console.log('linking to', hrefId, this.route);
+        this.router.navigate(['../' + hrefId], { relativeTo: this.route });
+      }
+    }
   }
 
   ngOnDestroy() {
