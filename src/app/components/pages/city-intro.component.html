@@ -1,4 +1,17 @@
+
 <section *ngIf="city">
+
+  <carousel *ngIf="slides">
+    <slide *ngFor="let slide of slides">
+      <img src="http://www.aviewoncities.com/img/london/intro/{{slide.slides[0].slide}}.jpg" alt="{{slide.title}}">
+      <div class="carousel-caption">
+        <p [attr.data-href]="'attracties/' + slide.alias" (click)="onClick($event)">
+          {{slide.title}}
+        </p>
+      </div>
+    </slide>
+  </carousel>
+
   <div class="facts">
     <div class="header border">Ligging van {{city.name.nl}}</div>
     <div class="map border" *ngIf="city">
@@ -9,3 +22,4 @@
 </section>
 
 <pre>{{city|json}}</pre>
+<pre>{{slides|json}}</pre>

@@ -3,6 +3,7 @@ import {BrowserModule, Title} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {AgmCoreModule} from 'angular2-google-maps/core';
+import {CarouselModule} from 'ng2-bootstrap/carousel';
 
 import {routes} from './app.routes';
 
@@ -39,7 +40,8 @@ import {APPCONFIG} from './app.config';
     RouterModule.forRoot(routes),
     AgmCoreModule.forRoot({
       apiKey: APPCONFIG.mapApi
-    })
+    }),
+    CarouselModule.forRoot()
   ],
   providers: [
     ErrorService,

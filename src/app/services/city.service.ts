@@ -29,7 +29,14 @@ export class CityService {
 
   getCityData(city: string) {
     return this.http
-    .get('/api/citydata/' + city)
+    .get('/api/city/data/' + city)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
+  getCitySlides(city: string) {
+    return this.http
+    .get('/api/city/slides/' + city)
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }

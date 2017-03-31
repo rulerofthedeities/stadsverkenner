@@ -98,5 +98,22 @@ module.exports = {
         response.handleSuccess(res, docs[0], 200, 'Fetched article info');
       });
     });
+  },
+  getSlides: function(req, res) {
+    cityAlias = req.params.city;
+    const pipeline = [
+      {$match:{'city.alias.nl': cityAlias, 'isPublished.nl':true, 'img.slides':{$exists: true}}},
+      {$project:{
+        _id: 0,
+        slides: '$img.slides',
+        alias: '$alias.nl',
+        title: '$title.nl'
+      }}
+    ];
+    Item.aggregate(pipeline, function(err, docs) {
+      response.handleError(err, res, 500, 'Error fetching slides', function(){
+        response.handleSuccess(res, docs, 200, 'Fetched slides');
+      });
+    });
   }
 }

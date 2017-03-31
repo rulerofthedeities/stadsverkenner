@@ -18,3 +18,7 @@ export interface Flags {
   hasToursPage: boolean;
   hasPostersPage: boolean;
 }
+
+export interface Slide {
+  slide: string;
+}
