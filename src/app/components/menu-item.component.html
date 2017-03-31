@@ -1,6 +1,10 @@
 <nav class="mainnav desktop" *ngIf="tabs">
   <div class="clearfix">
-    <a *ngIf="tabs.info" routerLink="" routerLinkActive="active"  class="tab">
+    <a *ngIf="tabs.info" 
+      routerLink="./" 
+      [routerLinkActiveOptions]="{exact: true}"
+      routerLinkActive="active" 
+      class="tab">
       Info
     </a>
     <a *ngIf="tabs.location" routerLink="ligging" routerLinkActive="active" class="tab">
@@ -16,18 +20,19 @@
 
 <nav class="mainnav mobile" *ngIf="tabs">
   <ul class="nav nav-pills">
-    <li routerLinkActive="active">
-      <a routerLink="" (click)="toggleActive($event)">
+    <li routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="./">
         <span class="fa fa-info-circle"></span>
       </a>
     </li>
     <li routerLinkActive="active">
-      <a routerLink="ligging" (click)="toggleActive($event)">
+      <a routerLink="ligging">
         <span class="fa fa-map-marker"></span>
       </a>
     </li>
     <li routerLinkActive="active">
-      <a routerLink="fotos" (click)="toggleActive($event)">
+      <a routerLink="fotos">
         <span class="fa fa-picture-o"></span>
       </a>
     </li>
