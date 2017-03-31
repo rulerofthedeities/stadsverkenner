@@ -1,6 +1,6 @@
 <nav class="mainnav desktop" *ngIf="tabs">
   <div class="clearfix">
-    <a *ngIf="tabs.info" routerLink="/{{cityAlias}}/attracties/{{itemAlias}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="tab">
+    <a *ngIf="tabs.info" routerLink="" routerLinkActive="active"  class="tab">
       Info
     </a>
     <a *ngIf="tabs.location" routerLink="ligging" routerLinkActive="active" class="tab">
@@ -16,9 +16,8 @@
 
 <nav class="mainnav mobile" *ngIf="tabs">
   <ul class="nav nav-pills">
-    <li routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}">
-      <a routerLink="/{{cityAlias}}/attracties/{{itemAlias}}" (click)="toggleActive($event)">
+    <li routerLinkActive="active">
+      <a routerLink="" (click)="toggleActive($event)">
         <span class="fa fa-info-circle"></span>
       </a>
     </li>
