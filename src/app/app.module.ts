@@ -31,6 +31,7 @@ import {PageNotFoundComponent} from './components/pages/page-not-found.component
 import {PictureModalComponent} from './components/modals/picture-modal.component';
 
 import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
+import {FormatPopulationPipe} from './pipes/format-population.pipe';
 import {APPCONFIG} from './app.config';
 
 @NgModule({
@@ -70,7 +71,8 @@ import {APPCONFIG} from './app.config';
     ItemMenuComponent,
     PageNotFoundComponent,
     PictureModalComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    FormatPopulationPipe
   ],
   bootstrap: [AppComponent]
 })

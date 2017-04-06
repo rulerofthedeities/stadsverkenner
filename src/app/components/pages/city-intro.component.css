@@ -1,0 +1,85 @@
+:host /deep/ .carousel {
+  border: 1px solid #538f18;
+}
+:host /deep/ .carousel-caption {
+  right: 0;
+  left: 0;
+  font-size: 18px;
+  background-color: #222;
+  opacity:0.7;
+  padding: 6px 0 0;
+  bottom: 0;
+}
+:host /deep/ .carousel-caption p {
+  margin: 0 0 30px;
+  cursor: pointer;
+}
+:host /deep/ .carousel-indicators {
+  bottom: 0;
+}
+.carousel {
+  width: 547px;
+  float:left;
+  margin-right: 4px;
+}
+.factbar {
+  float:left;
+  width: 389px;
+}
+.header {
+  background-color: #b9e58b;
+  border: 1px solid #538f18;
+  border-bottom: 0;
+  color: #333;
+  font-weight: bold;
+  padding: 3px;
+  text-align: center;
+}
+.box {
+  border: 1px solid #538f18;
+  margin-bottom: 4px;
+  padding: 2px;
+}
+.map {
+  text-align: center;
+}
+.subheader {
+  color: #555;
+  font-weight: bold;
+  padding: 2px 0 1px 4px;
+}
+.subdata{
+  margin-left: 16px;
+}
+.facts{
+  height: 120px;
+  overflow: hidden;
+}
+.subbox {
+  float: left;
+  height: 100%;
+  padding-right: 3px;
+  margin-right: 4px;
+}
+.subbox.left {
+  border-right: 1px dotted #538f18;
+  width: 190px;
+}
+.subdata > img {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #ccc;
+}
+.adbar {
+  background-color: red;
+  float:right;
+  width: 120px;
+}
+
+@media screen and (max-width: 993px) {
+  .factbar {display: none;}
+}
+
+@media screen and (max-width: 1200px) {
+  .adbar {display: none;}
+}

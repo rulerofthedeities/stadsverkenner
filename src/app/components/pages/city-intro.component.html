@@ -1,24 +1,55 @@
 
 <section *ngIf="city">
-
-  <carousel *ngIf="slides">
-    <slide *ngFor="let slide of slides">
-      <img src="http://www.aviewoncities.com/img/london/intro/{{slide.slides[0].slide}}.jpg" alt="{{slide.title}}">
-      <div class="carousel-caption">
-        <p [attr.data-href]="'attracties/' + slide.alias" (click)="onClick($event)">
-          {{slide.title}}
-        </p>
-      </div>
-    </slide>
-  </carousel>
-
-  <div class="facts">
-    <div class="header border">Ligging van {{city.name.nl}}</div>
-    <div class="map border" *ngIf="city">
-      <img src="{{imgHost}}/img/{{city.alias.en}}/{{city.alias.en}}_minimap.jpg" alt="Ligging van {{city.name.nl}}" />
-    </div>
-    <div class="header border">Enkele Feiten</div>
+  <div class="carousel">
+    <carousel *ngIf="slides">
+      <slide *ngFor="let slide of slides">
+        <img src="http://www.aviewoncities.com/img/{{city.alias.en}}/intro/{{slide.slides[0].slide}}.jpg" alt="{{slide.title}}">
+        <div class="carousel-caption">
+          <p [attr.data-href]="'attracties/' + slide.alias" (click)="onClick($event)">
+            {{slide.title}}
+          </p>
+        </div>
+      </slide>
+    </carousel>
   </div>
+  <div class="adbar">
+    ADS
+  </div>
+  <div class="factbar">
+    <div class="header">Ligging van {{city.name?.nl}}</div>
+    <div class="map box">
+      <img src="{{imgHost}}/img/{{city.alias.en}}/{{city.alias.en}}_minimap.png" alt="Ligging van {{city.name.nl}}" />
+    </div>
+    <div class="header">Enkele Feiten</div>
+    <div class="facts box">
+      <div class="subbox left">
+        <div class="subheader">Aantal Inwoners</div>
+        <div class="subdata">
+          <div *ngIf="city.population?.current?.city">
+            {{city.population.current.city.name}}: {{city.population.current.city.value|population}} ({{city.population.current.city.year}})
+          </div>
+          <div *ngIf="city.population?.current?.metro">
+            {{city.population.current.metro.name}}: {{city.population.current.metro.value|population}} ({{city.population.current.metro.year}})
+          </div>
+        </div>
+        <div class="subheader">Taal</div>
+        <div class="subdata">
+          {{city.language?.nl}}
+        </div>
+      </div>
+      <div class="subbox">
+        <div class="subheader">Vlag</div>
+        <div class="subdata">
+        <img src="http://www.aviewoncities.com/img/zzflags/{{city.flag}}" alt="Vlag van {{city.name?.nl}}">
+        </div>
+        <div class="subheader">Munteenheid</div>
+        <div class="subdata">
+          {{city.currency.name}} ({{city.currency.code}})
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
 </section>
 
 <pre>{{city|json}}</pre>

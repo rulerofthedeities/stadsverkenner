@@ -9,27 +9,7 @@ import 'rxjs/add/operator/takeWhile';
 
 @Component({
   templateUrl: './city-intro.component.html',
-  styles: [`
-    :host /deep/ .carousel {
-      max-width: 547px;
-    }
-    :host /deep/ .carousel-caption {
-      right: 0;
-      left: 0;
-      font-size: 18px;
-      background-color: #222;
-      opacity:0.7;
-      padding: 6px 0 0;
-      bottom: 0;
-    }
-    :host /deep/ .carousel-caption p {
-      margin: 0 0 30px;
-      cursor: pointer;
-    }
-    :host /deep/ .carousel-indicators {
-      bottom: 0;
-    }
-  `]
+  styleUrls: ['city-intro.component.css']
 })
 export class CityIntroComponent implements OnInit, OnDestroy {
   componentActive = true;
