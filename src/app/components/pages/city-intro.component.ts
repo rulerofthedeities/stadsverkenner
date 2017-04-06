@@ -2,9 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {CityService} from '../../services/city.service';
+import {ItemService} from '../../services/item.service';
 import {GlobalService} from '../../services/global.service';
 import {ErrorService} from '../../services/error.service';
 import {City, Slide} from '../../models/city.model';
+import {Article} from '../../models/item.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
@@ -16,9 +18,11 @@ export class CityIntroComponent implements OnInit, OnDestroy {
   city: City;
   slides: Slide[];
   imgHost: string;
+  articles: Article[];
 
   constructor(
     private cityService: CityService,
+    private itemService: ItemService,
     private globalService: GlobalService,
     private errorService: ErrorService,
     private titleService: Title,
@@ -31,6 +35,7 @@ export class CityIntroComponent implements OnInit, OnDestroy {
     this.fetchImageHost();
     this.fetchCityData(cityAlias);
     this.fetchCitySlides(cityAlias);
+    this.fetchArticleData(cityAlias);
   }
 
   fetchCityData(cityAlias: string) {
@@ -54,6 +59,16 @@ export class CityIntroComponent implements OnInit, OnDestroy {
       data => {
         this.slides = data;
       },
+      error => this.errorService.handleError(error)
+    );
+  }
+
+  fetchArticleData(cityAlias: string) {
+    this.itemService
+    .getArticles(cityAlias)
+    .takeWhile(() => this.componentActive)
+    .subscribe(
+      data => this.articles = data.slice(0, 11),
       error => this.errorService.handleError(error)
     );
   }

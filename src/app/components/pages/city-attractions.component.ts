@@ -67,7 +67,7 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
     .getArticles(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      articles => {this.articles = articles; console.log('articles', articles); },
+      articles => this.articles = articles,
       error => this.errorService.handleError(error)
     );
   }

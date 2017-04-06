@@ -4,7 +4,7 @@ import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {GlobalService} from '../../services/global.service';
 import {Title} from '@angular/platform-browser';
-import {Article} from '../../models/article.model';
+import {Article} from '../../models/item.model';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/filter';
 

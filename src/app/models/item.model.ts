@@ -4,6 +4,7 @@ export interface Article {
   subTitle?: string;
   cityName: string;
   preview?: string;
+  thumb?: string;
   hasPos?: boolean;
   photoCount?: number;
 }

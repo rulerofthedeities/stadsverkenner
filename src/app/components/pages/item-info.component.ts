@@ -3,7 +3,7 @@ import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {GlobalService} from '../../services/global.service';
-import {Article} from '../../models/article.model';
+import {Article} from '../../models/item.model';
 import {PictureModalComponent} from '../modals/picture-modal.component';
 
 import 'rxjs/add/operator/takeWhile';
