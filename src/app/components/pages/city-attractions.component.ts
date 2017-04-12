@@ -55,7 +55,7 @@ export class CityAttractionsComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       data => {
-        this.city = data; console.log('city', data);
+        this.city = data;
         this.titleService.setTitle('Bezienswaardigheden in ' + data['name']['nl']);
       },
       error => this.errorService.handleError(error)

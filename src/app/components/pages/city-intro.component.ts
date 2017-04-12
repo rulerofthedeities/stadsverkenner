@@ -87,6 +87,10 @@ export class CityIntroComponent implements OnInit, OnDestroy {
     }
   }
 
+  articleTooltip(i: number) {
+    return this.articles[i].title;
+  }
+
   ngOnDestroy() {
     this.componentActive = false;
   }
