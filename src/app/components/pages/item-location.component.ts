@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {ItemService} from '../../services/item.service';
 import {ErrorService} from '../../services/error.service';
 import {GlobalService} from '../../services/global.service';
-import {Marker} from '../../models/map.model';
+import {Map, Marker} from '../../models/map.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
@@ -12,26 +12,12 @@ import 'rxjs/add/operator/takeWhile';
     <div *ngFor="let line of address">
       {{line}}
     </div>
-
     <div class="map">
-      <sebm-google-map 
-      [longitude]="location[0]"
-      [latitude]="location[1]"
-      [zoom]="zoom">
-
-        <sebm-google-map-marker 
-          [longitude]="location[0]"
-          [latitude]="location[1]"
-          [iconUrl]="imgPath + img + '.jpg'"
-          [markerDraggable]="false">
-          <sebm-google-map-info-window>
-            <p>{{title}}</p>
-          </sebm-google-map-info-window>
-        </sebm-google-map-marker>
-
-      </sebm-google-map>
+      <km-map
+        [map]="map"
+        [markers]="markers">
+      </km-map>
     </div>
-
   </div>
 
   `,
@@ -48,12 +34,14 @@ import 'rxjs/add/operator/takeWhile';
 export class ItemLocationComponent implements OnInit, OnDestroy {
   private componentActive = true;
   dataLoaded = false;
-  imgPath: string;
+  // imgPath: string;
   address: string;
-  location: any;
-  zoom = 13;
-  img: string;
-  title: string;
+  // location: any;
+  // zoom = 13;
+  // img: string;
+  // title: string;
+  map: Map;
+  markers: Marker[] = [];
 
   constructor(
     private router: Router,
@@ -77,15 +65,28 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       locationData => {
-        this.location = locationData.pos.coordinates;
-        this.title = locationData.title;
         if (locationData.address) {
           this.address = locationData.address.split(';');
         }
+        let img = '';
         if (locationData.img) {
-          this.img = locationData.img;
+          const imgPath = this.globalService.imageHost + '/img/' + locationData.path + '/';
+          img = imgPath + locationData.img + '.jpg';
         }
-        this.imgPath = this.globalService.imageHost + '/img/' + locationData.path + '/';
+        this.map = {
+          zoom: 16,
+          lon: locationData.pos.coordinates[0],
+          lat: locationData.pos.coordinates[1]
+        };
+        const marker: Marker = {
+          lon: locationData.pos.coordinates[0],
+          lat: locationData.pos.coordinates[1],
+          label: '',
+          icon: img,
+          url: '',
+          infotxt: locationData.title
+        };
+        this.markers.push(marker);
         this.dataLoaded = true;
       },
       error => this.errorService.handleError(error)

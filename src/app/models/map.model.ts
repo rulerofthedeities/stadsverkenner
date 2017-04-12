@@ -1,6 +1,15 @@
 export interface Marker {
   lat: number;
-  lng: number;
+  lon: number;
   label?: string;
-  draggable: boolean;
+  icon?: string;
+  url?: string;
+  infotxt: string;
 }
+
+export interface Map {
+  lat: number;
+  lon: number;
+  zoom: number;
+}
+

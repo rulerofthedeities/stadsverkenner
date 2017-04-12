@@ -30,6 +30,8 @@ import {ItemPhotosComponent} from './components/pages/item-photos.component';
 import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 import {PictureModalComponent} from './components/modals/picture-modal.component';
+import {MapComponent} from './components/map/map.component';
+import {MapMarkersComponent} from './components/map/map-markers.component';
 
 import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
 import {FormatPopulationPipe} from './pipes/format-population.pipe';
@@ -73,6 +75,8 @@ import {APPCONFIG} from './app.config';
     ItemMenuComponent,
     PageNotFoundComponent,
     PictureModalComponent,
+    MapComponent,
+    MapMarkersComponent,
     SanitizeHtmlPipe,
     FormatPopulationPipe
   ],
