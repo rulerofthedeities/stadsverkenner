@@ -13,6 +13,7 @@ module.exports.initialize = function(app, router) {
   router.get('/article/location/:city/:item', items.getArticleLocation);
   router.get('/article/photos/:city/:item', items.getArticlePhotos);
   router.get('/articles/:city', items.getArticles);
+  router.get('/articles/map/:city', items.getArticlesMap);
 
   app.use('/api/', router);
 

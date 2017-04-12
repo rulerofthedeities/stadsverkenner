@@ -22,6 +22,28 @@ module.exports = {
       });
     });
   },
+  getArticlesMap: function(req, res) {
+    cityAlias = req.params.city;
+    const pipeline = [
+      {$match:{'city.alias.nl': cityAlias, 'img.thumb': {$exists: true}}},
+      {$project:{
+        _id:0, 
+        pos:1,
+        isTopAttraction:1,
+        title:'$title.nl', 
+        alias:'$alias.nl', 
+        address: '$address.nl',
+        thumb:'$img.thumb',
+        hasArticle:'$isPublished.nl'
+      }},
+      {$sort:{rank:1}}
+    ];
+    Item.aggregate(pipeline, function(err, docs) {
+      response.handleError(err, res, 500, 'Error fetching articles', function(){
+        response.handleSuccess(res, docs, 200, 'Fetched articles');
+      });
+    });
+  },
   getArticleHeader: function(req, res) {
     cityAlias = req.params.city;
     itemAlias = req.params.item;

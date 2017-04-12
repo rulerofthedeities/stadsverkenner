@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {GlobalService} from '../services/global.service';
 import {HeaderService} from '../services/header.service';
 
@@ -6,7 +6,9 @@ import {HeaderService} from '../services/header.service';
   selector: 'km-header',
   template: `
     <div>
-      <img src="/assets/img/layout/logo.png" alt="Stadsverkenner" class="logo pull-left">
+      <a routerLink="">
+        <img src="/assets/img/layout/logo.png" alt="Stadsverkenner" class="logo pull-left">
+      </a>
       <div class="banner">
         {{title}}
       </div>
@@ -14,7 +16,7 @@ import {HeaderService} from '../services/header.service';
   `,
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   componentActive = true;
   title: string;
 

@@ -21,6 +21,13 @@ export class ItemService {
     .catch(error => Observable.throw(error));
   }
 
+  getArticlesMap(cityAlias: string) {
+    return this.http
+    .get('/api/articles/map/' + cityAlias)
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
   getArticleHead(cityAlias: string, itemAlias: string) {
     return this.http
     .get('/api/article/head/' + cityAlias + '/' + itemAlias)

@@ -27,6 +27,7 @@
 }
 .factbar {
   float:left;
+  height: 400px;
   width: 389px;
 }
 .header {
