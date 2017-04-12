@@ -10,15 +10,34 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
-  template: `City Map
+  template: `
+  <div class="map" *ngIf="articles">
+    <sebm-google-map 
+    [longitude]="city.pos[0]"
+    [latitude]="city.pos[1]"
+    [zoom]="zoom">
+
+    </sebm-google-map>
+  </div>
+
   <pre>{{city|json}}</pre>
   <pre>{{articles|json}}</pre>
-  `
+  `,
+  styles: [`
+    .sebm-google-map-container {
+      height: 600px;
+    }
+    .map {
+      border: 1px solid #538f18;
+      margin: 2px 0 4px 0;
+    }
+  `]
 })
 export class CityMapComponent implements OnInit, OnDestroy {
   componentActive = true;
   articles: Object;
   city: City;
+  zoom = 13;
   imgHost: string;
 
   constructor(
@@ -58,6 +77,7 @@ export class CityMapComponent implements OnInit, OnDestroy {
     .subscribe(
       data => {
         this.city = data;
+        this.zoom = parseInt(this.city.zoom, 10);
         this.titleService.setTitle('Kaart met bezienswaardigheden in ' + data['name']['nl']);
       },
       error => this.errorService.handleError(error)

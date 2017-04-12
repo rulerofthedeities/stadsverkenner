@@ -16,23 +16,32 @@ module.exports = {
     });
   },
   getCity: function(req, res) {
-    cityAlias = req.params.city;
-    City.findOne({'alias.nl':cityAlias}, {
-      alias:'$alias.nl', 
-      name:'$name.nl', 
-      flags:1, 
-      icon:'$icon.fileName'
-    }, function(err, doc) {
+    const cityAlias = req.params.city;
+    const pipeline = [
+      {$match:{'alias.nl':cityAlias}},
+      {$limit: 1},
+      {$project:
+        {
+          alias:1, 
+          name:1, 
+          zoom:'$map.zoom', 
+          pos:'$pos.coordinates',
+          icon:'$icon.fileName', 
+          flags:1
+        }
+      }
+    ];
+    City.aggregate(pipeline, function(err, docs) {
       response.handleError(err, res, 500, 'Error fetching city', function(){
-        response.handleSuccess(res, doc, 200, 'Fetched city');
+        response.handleSuccess(res, docs[0], 200, 'Fetched city');
       });
     })
   },
   getCityData: function(req, res) {
     cityAlias = req.params.city;
     City.findOne({'alias.nl':cityAlias}, function(err, doc) {
-      response.handleError(err, res, 500, 'Error fetching city', function(){
-        response.handleSuccess(res, doc, 200, 'Fetched city');
+      response.handleError(err, res, 500, 'Error fetching city data', function(){
+        response.handleSuccess(res, doc, 200, 'Fetched city data');
       });
     })
   }

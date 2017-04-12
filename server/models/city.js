@@ -25,7 +25,9 @@ var citySchema = new Schema({
     alias: {type: languageSchema, required: true},
     name: languageSchema,
     icon: String,
-    flags: flagsSchema
+    zoom: String,
+    flags: flagsSchema,
+    pos: [Number]
   }, {collection: 'cities'}
 );
 

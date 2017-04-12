@@ -2,8 +2,10 @@ export interface City {
   _id?: string;
   alias: string;
   name: string;
-  icon?: string;
+  icon: string;
+  zoom: string;
   flags: Flags;
+  pos: number[];
 }
 
 export interface Flags {
