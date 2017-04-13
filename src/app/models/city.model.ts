@@ -1,7 +1,15 @@
+export interface Languages {
+  en: string;
+  nl: string;
+  de?: string;
+  fr?: string;
+  local?: string;
+}
+
 export interface City {
   _id?: string;
-  alias: string;
-  name: string;
+  alias: Languages;
+  name: Languages;
   icon: string;
   zoom: string;
   flags: Flags;

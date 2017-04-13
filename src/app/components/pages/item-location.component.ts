@@ -22,9 +22,6 @@ import 'rxjs/add/operator/takeWhile';
 
   `,
   styles: [`
-    .sebm-google-map-container {
-      height: 600px;
-    }
     .map {
       border: 1px solid #538f18;
       margin: 2px 0 4px 0;
@@ -34,12 +31,7 @@ import 'rxjs/add/operator/takeWhile';
 export class ItemLocationComponent implements OnInit, OnDestroy {
   private componentActive = true;
   dataLoaded = false;
-  // imgPath: string;
   address: string;
-  // location: any;
-  // zoom = 13;
-  // img: string;
-  // title: string;
   map: Map;
   markers: Marker[] = [];
 

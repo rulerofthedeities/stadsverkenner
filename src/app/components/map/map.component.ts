@@ -13,7 +13,8 @@ import {Marker, Map} from '../../models/map.model';
         [markers]="markers">
       </km-map-markers>
 
-    </sebm-google-map>`,
+    </sebm-google-map>
+    <pre>{{markers|json}}</pre>`,
   styles: [`
     .sebm-google-map-container {
       height: 600px;

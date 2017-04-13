@@ -6,19 +6,23 @@ import {GlobalService} from '../../services/global.service';
 import {ErrorService} from '../../services/error.service';
 import {CityService} from '../../services/city.service';
 import {City} from '../../models/city.model';
-import {Map} from '../../models/map.model';
+import {Map, Marker} from '../../models/map.model';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
   template: `
-  <div class="map" *ngIf="articles">
-    <km-map [map]="map">
+  <div class="map" *ngIf="markersDone && map">
+    <km-map 
+      [map]="map"
+      [markers]="markers">
     </km-map>
   </div>
 
+CITY:
   <pre>{{city|json}}</pre>
-  <pre>{{articles|json}}</pre>
+IMG
+  <img src="/assets/img/map/pin-blue.png">
   `,
   styles: [`
     .map {
@@ -29,10 +33,11 @@ import 'rxjs/add/operator/takeWhile';
 })
 export class CityMapComponent implements OnInit, OnDestroy {
   componentActive = true;
-  articles: Object;
   city: City;
   map: Map;
+  markers: Marker[] = [];
   imgHost: string;
+  markersDone = false;
 
   constructor(
     private itemService: ItemService,
@@ -87,9 +92,32 @@ export class CityMapComponent implements OnInit, OnDestroy {
     .getArticlesMap(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      articles => this.articles = articles,
+      articles => this.createMarkers(articles),
       error => this.errorService.handleError(error)
     );
+  }
+
+  createMarkers(articles: any[]) {
+    // this.imgHost + '/img/' + this.city.alias.en + '/' + article.thumb + '.jpg'
+    let marker: Marker;
+    const img_blue = '/assets/img/map/pin-blue.png',
+          img_red = '/assets/img/map/pin-red.png',
+          img_top = '/assets/img/map/marker-red.png';
+
+    articles.forEach(article => {
+      console.log(article);
+      marker = {
+        lon: article.pos.coordinates[0],
+        lat: article.pos.coordinates[1],
+        label: '',
+        icon: article.isTopAttraction ? img_top : (article.hasArticle ? img_red : img_blue),
+        url: '',
+
+        infotxt: article.title
+      };
+      this.markers.push(marker);
+    });
+    this.markersDone = true;
   }
 
   ngOnDestroy() {
