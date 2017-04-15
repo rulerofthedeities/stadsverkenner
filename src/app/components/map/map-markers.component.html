@@ -1,0 +1,38 @@
+<sebm-google-map-marker
+  *ngFor="let m of markers; let i = index"
+  (markerClick)="clickedMarker(m, i)"
+  (mouseOver)="hoveredMarker(m, i)"
+  [longitude]="m.lon"
+  [latitude]="m.lat"
+  [label]="m.label"
+  [markerDraggable]="false"
+  [iconUrl]="m.icon">
+  <sebm-google-map-info-window
+    [isOpen]="m.isOpen">
+    <p>
+      <span class="txt">
+        <span class="title">
+          <span *ngIf="m.url">
+            <a routerLink="{{m.url}}">{{m.infoTxt}}</a>
+          </span>
+          <span *ngIf="!m.url">
+            {{m.infoTxt}}
+          </span>
+        </span>
+        <span class="address" *ngIf="m.address">
+          <span class="line" *ngFor="let line of m.address">
+            {{line}}
+          </span>
+        </span>
+      </span>
+      <span class="thumb" *ngIf="m.infoImg">
+        <span *ngIf="m.url">
+          <a routerLink="{{m.url}}"><img src="{{m.infoImg}}"></a>
+        </span>
+        <span *ngIf="!m.url">
+          <img src="{{m.infoImg}}">
+        </span>
+      </span>
+    </p>
+  </sebm-google-map-info-window>
+</sebm-google-map-marker>

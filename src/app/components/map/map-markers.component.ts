@@ -1,35 +1,32 @@
 import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
 import {Marker} from '../../models/map.model';
 
 @Component({
   selector: 'km-map-markers',
-  template: `
-    <sebm-google-map-marker
-      *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m, i)"
-      (markerMouseOver)="hoveredMarker(m, i)"
-      (on-mouseover)="hoveredMarker(m, i)"
-      [longitude]="m.lon"
-      [latitude]="m.lat"
-      [label]="m.label"
-      [markerDraggable]="false"
-      [iconUrl]="m.icon">
-      <sebm-google-map-info-window>
-        <p>{{markers.length > 1 ? i+1 + '.' : ''}} 
-          <span *ngIf="m.url"><a href="{{m.url}}" target="_blank">{{m.infotxt}}</a></span>
-          <span *ngIf="!m.url">{{m.infotxt}}</span>
-        </p>
-      </sebm-google-map-info-window>
-    </sebm-google-map-marker>`
+  templateUrl: 'map-markers.component.html',
+  styleUrls: ['map-markers.component.css']
 })
 
 export class MapMarkersComponent {
   @Input() markers: Marker[];
 
+  constructor(
+    private router: Router
+  ) {}
+
   clickedMarker(m: Marker, i: number) {
     console.log('clicked', m, i);
+    if (m.url) {
+      this.router.navigate([m.url]);
+    }
   }
+
   hoveredMarker(m: Marker, i: number) {
-    console.log('hovered', m, i);
+    // close open windows
+    const toClose: Marker[] = this.markers.filter(marker => marker.isOpen);
+    toClose.forEach(marker => marker.isOpen = false);
+    // open hovered window
+    m.isOpen = true;
   }
 }

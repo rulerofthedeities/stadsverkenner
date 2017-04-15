@@ -31,7 +31,7 @@ import 'rxjs/add/operator/takeWhile';
 export class ItemLocationComponent implements OnInit, OnDestroy {
   private componentActive = true;
   dataLoaded = false;
-  address: string;
+  address: string[];
   map: Map;
   markers: Marker[] = [];
 
@@ -58,7 +58,7 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
     .subscribe(
       locationData => {
         if (locationData.address) {
-          this.address = locationData.address.split(';');
+          this.address = this.itemService.getAddress(locationData.address);
         }
         let img = '';
         if (locationData.img) {
@@ -70,13 +70,17 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
           lon: locationData.pos.coordinates[0],
           lat: locationData.pos.coordinates[1]
         };
+        console.log(locationData);
         const marker: Marker = {
           lon: locationData.pos.coordinates[0],
           lat: locationData.pos.coordinates[1],
           label: '',
-          icon: img,
+          icon: '/assets/img/map/pin-red.png',
           url: '',
-          infotxt: locationData.title
+          isOpen: true,
+          infoImg: img,
+          infoTxt: locationData.title,
+          address: this.itemService.getAddress(locationData.address)
         };
         this.markers.push(marker);
         this.dataLoaded = true;

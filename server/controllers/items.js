@@ -32,11 +32,11 @@ module.exports = {
         isTopAttraction:1,
         title:'$title.nl', 
         alias:'$alias.nl', 
-        address: '$address.nl',
+        address: '$address',
         thumb:'$img.thumb',
         hasArticle:'$isPublished.nl'
       }},
-      {$sort:{rank:1}}
+      {$sort:{title:1}}
     ];
     Item.aggregate(pipeline, function(err, docs) {
       response.handleError(err, res, 500, 'Error fetching articles', function(){
@@ -93,11 +93,12 @@ module.exports = {
         path: '$city.alias.en',
         pos: '$pos',
         img: '$img.thumb',
-        address: '$address.nl',
+        address: '$address',
         title: '$title.nl'
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {
+
       response.handleError(err, res, 500, 'Error fetching article info', function(){
         response.handleSuccess(res, docs[0], 200, 'Fetched article info');
       });

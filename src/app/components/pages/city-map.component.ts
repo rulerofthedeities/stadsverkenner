@@ -98,7 +98,6 @@ export class CityMapComponent implements OnInit, OnDestroy {
   }
 
   createMarkers(articles: any[]) {
-    // this.imgHost + '/img/' + this.city.alias.en + '/' + article.thumb + '.jpg'
     let marker: Marker;
     const img_blue = '/assets/img/map/pin-blue.png',
           img_red = '/assets/img/map/pin-red.png',
@@ -111,9 +110,11 @@ export class CityMapComponent implements OnInit, OnDestroy {
         lat: article.pos.coordinates[1],
         label: '',
         icon: article.isTopAttraction ? img_top : (article.hasArticle ? img_red : img_blue),
-        url: '',
-
-        infotxt: article.title
+        url: article.hasArticle ? '/' + this.city.alias.nl + '/attracties/' + article.alias : '',
+        isOpen: false,
+        infoImg: this.imgHost + '/img/' + this.city.alias.en + '/' + article.thumb + '.jpg',
+        infoTxt: article.title,
+        address: this.itemService.getAddress(article.address)
       };
       this.markers.push(marker);
     });

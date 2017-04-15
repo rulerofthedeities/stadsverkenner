@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-abstract class Menu {
+export abstract class Menu {
   mobileMenu = false;
 
   constructor (

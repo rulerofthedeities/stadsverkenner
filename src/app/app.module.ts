@@ -32,6 +32,7 @@ import {PageNotFoundComponent} from './components/pages/page-not-found.component
 import {PictureModalComponent} from './components/modals/picture-modal.component';
 import {MapComponent} from './components/map/map.component';
 import {MapMarkersComponent} from './components/map/map-markers.component';
+import {ErrorMessageComponent} from './components/msg/error-message.component';
 
 import {SanitizeHtmlPipe} from './pipes/sanatize-html.pipe';
 import {FormatPopulationPipe} from './pipes/format-population.pipe';
@@ -77,6 +78,7 @@ import {APPCONFIG} from './app.config';
     PictureModalComponent,
     MapComponent,
     MapMarkersComponent,
+    ErrorMessageComponent,
     SanitizeHtmlPipe,
     FormatPopulationPipe
   ],
