@@ -12,21 +12,12 @@ import 'rxjs/add/operator/takeWhile';
     <div *ngFor="let line of address">
       {{line}}
     </div>
-    <div class="map">
-      <km-map
-        [map]="map"
-        [markers]="markers">
-      </km-map>
-    </div>
+    <km-map
+      [map]="map"
+      [markers]="markers">
+    </km-map>
   </div>
-
-  `,
-  styles: [`
-    .map {
-      border: 1px solid #538f18;
-      margin: 2px 0 4px 0;
-    }
-  `]
+  `
 })
 export class ItemLocationComponent implements OnInit, OnDestroy {
   private componentActive = true;

@@ -1,0 +1,19 @@
+<div class="map">
+  <div class="names">
+    <ul class="list-unstyled">
+      <li *ngFor="let marker of markers; let i=index" (click)="onClick(i)">
+        {{marker.infoTxt}}
+      </li>
+    </ul>
+  </div>
+  <sebm-google-map 
+    [longitude]="map.lon"
+    [latitude]="map.lat"
+    [zoom]="map.zoom"
+    [ngClass]="{mapitems:showItems}">
+    <km-map-markers 
+      *ngIf="markers"
+      [markers]="markers">
+    </km-map-markers>
+  </sebm-google-map>
+</div>

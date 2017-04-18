@@ -12,24 +12,14 @@ import 'rxjs/add/operator/takeWhile';
 
 @Component({
   template: `
-  <div class="map" *ngIf="markersDone && map">
+  <div *ngIf="markersDone && map">
     <km-map 
       [map]="map"
-      [markers]="markers">
+      [markers]="markers"
+      [showItems]="true">
     </km-map>
   </div>
-
-CITY:
-  <pre>{{city|json}}</pre>
-IMG
-  <img src="/assets/img/map/pin-blue.png">
-  `,
-  styles: [`
-    .map {
-      border: 1px solid #538f18;
-      margin: 2px 0 4px 0;
-    }
-  `]
+  `
 })
 export class CityMapComponent implements OnInit, OnDestroy {
   componentActive = true;

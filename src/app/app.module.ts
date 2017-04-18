@@ -10,6 +10,7 @@ import {routes} from './app.routes';
 
 import {CityService} from './services/city.service';
 import {ItemService} from './services/item.service';
+import {MapService} from './services/map.service';
 import {HeaderService} from './services/header.service';
 import {ErrorService} from './services/error.service';
 import {GlobalService} from './services/global.service';
@@ -54,6 +55,7 @@ import {APPCONFIG} from './app.config';
     HeaderService,
     CityService,
     ItemService,
+    MapService,
     GlobalService,
     Title
   ],
