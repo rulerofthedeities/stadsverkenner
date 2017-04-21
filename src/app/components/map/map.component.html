@@ -1,5 +1,5 @@
 <div class="map">
-  <div class="names">
+  <div class="names" *ngIf="showItems">
     <ul class="list-unstyled">
       <li *ngFor="let marker of markers; let i=index" (click)="onClick(i)">
         {{marker.infoTxt}}

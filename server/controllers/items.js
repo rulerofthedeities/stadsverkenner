@@ -112,6 +112,7 @@ module.exports = {
       {$project:{
         _id: 0,
         path: '$city.alias.en',
+        firstPhoto: '$img.photo',
         items: '$photos',
         related: '$photosRelated'
       }}

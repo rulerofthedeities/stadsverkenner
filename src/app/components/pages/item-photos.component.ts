@@ -14,7 +14,7 @@ export class ItemPhotosComponent implements OnInit, OnDestroy {
   private currentRoute: string;
   current = 0;
   dataLoaded = false;
-  photos: any;
+  photos: string[];
   imgPath: string;
 
   constructor(
@@ -39,12 +39,28 @@ export class ItemPhotosComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       photos => {
-        this.photos = photos.items;
+        this.photos = this.buildPhotoList(photos);
         this.imgPath = this.globalService.imageHost + '/img/' + photos.path + '/';
         this.dataLoaded = true;
       },
       error => this.errorService.handleError(error)
     );
+  }
+
+  buildPhotoList(photos: any): string[] {
+    let photoList: string[] = [];
+    if (photos.items) {
+      photoList = photos.items;
+      if (photos.related) {
+        photoList = photoList.concat(photos.related);
+      }
+      // Put firstPhoto first in list
+      const firstPhoto = photos.firstPhoto.slice(0, -1); // remove last character (s suffix)
+      photoList.filter(photo => photo !== firstPhoto); // remove first photo from list
+      photoList.unshift(firstPhoto); // add first photo to front of list
+    }
+
+    return photoList;
   }
 
   selectPhoto(nr: number) {
@@ -53,7 +69,7 @@ export class ItemPhotosComponent implements OnInit, OnDestroy {
 
   nextPhoto(nr: number) {
     nr = ++nr % this.photos.length;
-    this.current = nr
+    this.current = nr;
   }
 
   ngOnDestroy() {
