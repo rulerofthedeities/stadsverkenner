@@ -11,7 +11,10 @@ import 'rxjs/add/operator/filter';
 
 @Component({
   template: `
-  <section *ngIf="dataLoaded">
+  <div class="ads">
+    ADS
+  </div>
+  <section>
     <div [innerHTML]="article | sanitizeHtml" class="content" (click)="onClick($event, modal)"></div>
   </section>
   <km-picture-modal #modal></km-picture-modal>

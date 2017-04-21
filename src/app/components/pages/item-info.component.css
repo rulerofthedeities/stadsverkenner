@@ -31,3 +31,8 @@
 :host /deep/ .pic img[data-lnk]{
   cursor: pointer;
 }
+.ads {
+  width: 160px;
+  float: right;
+  background-color: red;
+}

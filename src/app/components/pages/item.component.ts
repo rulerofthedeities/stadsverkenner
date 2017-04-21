@@ -9,23 +9,7 @@ import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/filter';
 
 @Component({
-  template: `
-  <section *ngIf="dataLoaded">
-    <h1>{{article.title}}</h1>
-    <div class="localname">{{article.subTitle}}</div>
-    <div class="intro">
-      <div [innerHTML]="preview | sanitizeHtml" (click)="onClick($event)"></div>
-    </div>
-    <km-item-menu
-      [tabs]="tabs"
-      [itemAlias]="itemAlias"
-      [cityAlias]="cityAlias"
-      [photoCount]="article.photoCount">
-    </km-item-menu>
-  </section>
-  
-  <router-outlet></router-outlet>
-  `,
+  templateUrl: 'item.component.html',
   styleUrls: ['item.component.css']
 })
 export class ItemComponent implements OnInit, OnDestroy {
@@ -36,6 +20,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   tabs: Object = {};
   cityAlias: string;
   preview: string;
+  articles: [Article];
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +40,7 @@ export class ItemComponent implements OnInit, OnDestroy {
           this.itemAlias = params['item'];
           this.cityAlias = this.router.url.split('/')[1];
           this.getArticleData(this.cityAlias, this.itemAlias);
+          this.fetchArticles(this.cityAlias);
         }
       }
     );
@@ -77,6 +63,16 @@ export class ItemComponent implements OnInit, OnDestroy {
     );
   }
 
+  fetchArticles(cityAlias: string) {
+    this.itemService
+    .getArticles(cityAlias)
+    .takeWhile(() => this.componentActive)
+    .subscribe(
+      articles => this.articles = articles,
+      error => this.errorService.handleError(error)
+    );
+  }
+
   setTabs() {
     this.tabs = {
       'info' : true,
@@ -94,6 +90,10 @@ export class ItemComponent implements OnInit, OnDestroy {
         // this.router.navigate(['/' + this.cityAlias + '/attracties/' + hrefId]);
       }
     }
+  }
+
+  onSelectItem(itemAlias: string) {
+    this.router.navigate([this.cityAlias + '/attracties/' + itemAlias]);
   }
 
   ngOnDestroy() {

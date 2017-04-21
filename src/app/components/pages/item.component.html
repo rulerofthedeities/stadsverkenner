@@ -1,0 +1,27 @@
+<section>
+  <div class="article-list">
+    <ul class="list-unstyled">
+      <li *ngFor="let item of articles" [ngClass]="{selected:item.alias===itemAlias}" (click)="onSelectItem(item.alias)">
+        {{item.title}}
+      </li>
+    </ul>
+  </div>
+  <div class="article">
+    <div class="header">
+      <h1>{{article?.title}}</h1>
+      <div class="localname">{{article?.subTitle}}</div>
+      <div class="intro">
+        <div [innerHTML]="preview | sanitizeHtml" (click)="onClick($event)"></div>
+      </div>
+    </div>
+    <div class="menu">
+      <km-item-menu
+        [tabs]="tabs"
+        [itemAlias]="itemAlias"
+        [cityAlias]="cityAlias"
+        [photoCount]="article?.photoCount">
+      </km-item-menu>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</section>
