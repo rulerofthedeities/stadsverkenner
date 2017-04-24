@@ -89,12 +89,11 @@ export class CityMapComponent implements OnInit, OnDestroy {
 
   createMarkers(articles: any[]) {
     let marker: Marker;
-    const img_blue = '/assets/img/map/pin-blue.png',
-          img_red = '/assets/img/map/pin-red.png',
-          img_top = '/assets/img/map/marker-red.png';
+    const img_blue = '/assets/img/map/pin-blue',
+          img_red = '/assets/img/map/pin-red',
+          img_top = '/assets/img/map/marker-red';
 
     articles.forEach(article => {
-      console.log(article);
       marker = {
         lon: article.pos.coordinates[0],
         lat: article.pos.coordinates[1],

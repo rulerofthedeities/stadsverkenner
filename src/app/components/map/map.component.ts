@@ -18,7 +18,6 @@ export class MapComponent {
   ) {}
 
   onClick(index: number) {
-    console.log('clicked ', index);
     this.mapService.selectMarker(index);
   }
 }

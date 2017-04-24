@@ -20,6 +20,11 @@
   cursor: pointer;
   text-decoration: underline;
 }
+.mini-icon {
+  height: 14px;
+  width: 11px;
+  margin-right: 2px;
+}
 
 /*  768px / 992px / 1200px */
 @media screen and (max-width: 1200px) {

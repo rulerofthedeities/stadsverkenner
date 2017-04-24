@@ -2,7 +2,7 @@
   <div class="names" *ngIf="showItems">
     <ul class="list-unstyled">
       <li *ngFor="let marker of markers; let i=index" (click)="onClick(i)">
-        {{marker.infoTxt}}
+        <img src="{{marker.icon + '_mini.png'}}" class="mini-icon">{{marker.infoTxt}}
       </li>
     </ul>
   </div>
