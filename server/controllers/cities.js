@@ -5,7 +5,7 @@ var response = require('../response'),
 module.exports = {
   getCities: function(req, res) {
     const pipeline = [
-      {$match:{icon:{$exists:true}}},
+      {$match:{icon:{$exists:true},'publish.nl':true}},
       {$project:{_id:0, name:'$name.nl', alias:'$alias.nl', icon:'$icon.fileName'}},
       {$sort:{name:1}}
     ];

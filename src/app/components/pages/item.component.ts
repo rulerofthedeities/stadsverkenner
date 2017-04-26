@@ -77,7 +77,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     this.tabs = {
       'info' : true,
       'location' : this.article.hasPos,
-      'photos' : this.article.photoCount > 0
+      'photos' : (this.article.photoCount + this.article.photoCountRelated) > 0
     };
   }
 

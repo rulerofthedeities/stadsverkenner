@@ -19,7 +19,7 @@
         [tabs]="tabs"
         [itemAlias]="itemAlias"
         [cityAlias]="cityAlias"
-        [photoCount]="article?.photoCount">
+        [photoCount]="article?.photoCount + article?.photoCountRelated">
       </km-item-menu>
     </div>
     <router-outlet></router-outlet>

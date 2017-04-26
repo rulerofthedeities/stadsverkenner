@@ -1,5 +1,5 @@
 :host /deep/ .content {
-  max-width: 740px;
+  max-width: 680px;
 }
 :host /deep/ .article {
   padding: 10px 6px 4px 6px;
@@ -31,8 +31,21 @@
 :host /deep/ .pic img[data-lnk]{
   cursor: pointer;
 }
+:host /deep/ h3 {
+  border-bottom: 1px dotted #666666;
+  font-weight: normal;
+  padding: 4px 0 0 0;
+  color: #222;
+  border-bottom: 1px dotted #666666;
+  margin: 5px 0 6px -2px;
+}
 .ads {
-  width: 160px;
+  width: 200px;
   float: right;
   background-color: red;
+}
+
+/* 480, 768, 992, 1200 */
+@media screen and (max-width:1200px) {
+  .ads {display: none;}
 }

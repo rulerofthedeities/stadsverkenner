@@ -21,7 +21,7 @@ h1 {
   text-align: justify;
 }
 .article-list {
-  width: 220px;
+  width: 240px;
   float: left;
   color: white;
   margin-right: 6px;
@@ -46,5 +46,13 @@ h1 {
 }
 .article {
   float: left;
-  width: 914px;
+  width: 894px;
+}
+
+/* 480, 768, 992, 1200 */
+@media screen and (max-width:1200px) {
+  .article {width: 694px;}
+}
+@media screen and (max-width:992px) {
+  .article-list {display: none;}
 }

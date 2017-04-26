@@ -64,7 +64,6 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
 
   onClick($event: any, modal: PictureModalComponent) {
     if ($event.target) {
-      console.log($event.target);
       const alt = $event.target.alt;
       const imgId = $event.target.dataset.lnk;
       if (imgId) {

@@ -7,4 +7,5 @@ export interface Article {
   thumb?: string;
   hasPos?: boolean;
   photoCount?: number;
+  photoCountRelated?: number;
 }

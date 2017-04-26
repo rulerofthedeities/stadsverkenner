@@ -12,9 +12,10 @@ module.exports = {
         title:'$title.nl', 
         alias:'$alias.nl', 
         preview:'$preview.nl',
-        thumb:'$img.thumb'
+        thumb:'$img.thumb',
+        traffic: '$traffic'
       }},
-      {$sort:{rank:1}}
+      {$sort:{traffic:-1}}
     ];
     Item.aggregate(pipeline, function(err, docs) {
       response.handleError(err, res, 500, 'Error fetching articles', function(){
@@ -57,7 +58,8 @@ module.exports = {
         preview:'$preview.nl',
         cityName: '$city.name.nl',
         hasPos: {$gt: ["$pos", null]},
-        photoCount: {$size: '$photos'}
+        photoCount: {$size: { $ifNull: [ "$photos", [] ] }},
+        photoCountRelated: {$size: { $ifNull: [ "$photosRelated", [] ] }}
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {
