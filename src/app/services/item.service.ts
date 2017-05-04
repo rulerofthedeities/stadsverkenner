@@ -57,6 +57,13 @@ export class ItemService {
     .catch(error => Observable.throw(error));
   }
 
+  getArticleTraffic() {
+    return this.http
+    .get('/api/traffic/articles')
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
+
   processData(content: string): string {
     let processedContent = '';
     // Replace hrefs with data tags

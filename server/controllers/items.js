@@ -125,7 +125,7 @@ module.exports = {
       });
     });
   },
-  getSlides: function(req, res) {
+  getCitySlides: function(req, res) {
     cityAlias = req.params.city;
     const pipeline = [
       {$match:{'city.alias.nl': cityAlias, 'isPublished.nl':true, 'img.slides':{$exists: true}}},
@@ -137,8 +137,53 @@ module.exports = {
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {
-      response.handleError(err, res, 500, 'Error fetching slides', function(){
-        response.handleSuccess(res, docs, 200, 'Fetched slides');
+      response.handleError(err, res, 500, 'Error fetching city slides', function(){
+        response.handleSuccess(res, docs, 200, 'Fetched city slides');
+      });
+    });
+  },
+  getCitiesTraffic: function(req, res) {
+    const pipeline = [
+      {$match:{'isPublished.nl':true}},
+      {$group:{
+        _id: { alias: "$city.alias.nl", name: "$city.name.nl"},
+        total:{$sum:'$traffic'}
+      }},
+      {$sort:{total:-1}},
+      {$limit:10},
+      {$project:{
+        _id: 0,
+        alias: '$_id.alias',
+        name: '$_id.name',
+        total: 1
+      }}
+    ];
+    Item.aggregate(pipeline, function(err, docs) {
+      response.handleError(err, res, 500, 'Error fetching city traffic', function(){
+        response.handleSuccess(res, docs, 200, 'Fetched city traffic');
+      });
+    });
+  },
+  getArticlesTraffic: function(req, res) {
+    const pipeline = [
+      {$match:{'isPublished.nl':true}},
+      {$group:{
+        _id: { alias: "$alias.nl", name: "$title.nl", city:"$city.alias.nl"},
+        total:{$sum:'$traffic'}
+      }},
+      {$sort:{total:-1}},
+      {$limit:10},
+      {$project:{
+        _id: 0,
+        alias: '$_id.alias',
+        name: '$_id.name',
+        city: '$_id.city',
+        total: 1
+      }}
+    ];
+    Item.aggregate(pipeline, function(err, docs) {
+      response.handleError(err, res, 500, 'Error fetching articles traffic', function(){
+        response.handleSuccess(res, docs, 200, 'Fetched articles traffic');
       });
     });
   }

@@ -47,6 +47,9 @@
 .map {
   text-align: center;
 }
+.map.box {
+  height: 224px;
+}
 .subheader {
   color: #555;
   font-weight: bold;

@@ -40,4 +40,11 @@ export class CityService {
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }
+
+  getCityTraffic() {
+    return this.http
+    .get('/api/traffic/cities')
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
 }
