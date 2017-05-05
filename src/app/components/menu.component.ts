@@ -40,7 +40,6 @@ export class MainMenuComponent extends Menu {
   }
 }
 
-
 @Component({
   selector: 'km-city-menu',
   templateUrl: 'menu-city.component.html',
@@ -57,7 +56,6 @@ export class CityMenuComponent extends Menu {
   ) {
     super(router, route);
   }
-
 }
 
 @Component({

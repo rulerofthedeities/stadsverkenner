@@ -13,63 +13,22 @@ interface Popular {
   total: number;
 }
 
+interface Cover {
+  img: string;
+  title: string;
+  url: string;
+}
+
 @Component({
-  template: `
-    <km-main-menu></km-main-menu>
-      <div class="slide">
-        SLIDE
-      </div>
-      <div class="popular">
-        <div class="cities">
-          <div class="header">
-            Populairste steden
-          </div>
-          <ul class="list-unstyled box">
-            <li *ngFor="let city of popularCities; let i=index">
-              {{i+1}}. <a routerLink="{{city.alias}}">{{city.name}}</a>
-            </li>
-          </ul>
-        </div>
-        <div class="articles">
-          <div class="header">
-            Populairste artikels
-          </div>
-          <ul class="list-unstyled box">
-            <li *ngFor="let item of popularArticles; let i=index">
-              {{i+1}}. <a routerLink="{{item.city + '/attracties/' + item.alias}}">{{item.name}}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-  `,
-  styles: [`
-    .slide {
-      float: left;
-    }
-    .popular {
-      width: 300px;
-      float: right;
-    }
-    .header {
-      background-color: #b9e58b;
-      border: 1px solid #538f18;
-      border-bottom: 0;
-      color: #333;
-      font-weight: bold;
-      padding: 2px;
-      text-align: center;
-    }
-    .box{
-      padding: 12px 8px;
-      border: 1px solid #538f18;
-    }
-  `]
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.css']
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
   componentActive = true;
   popularCities: Popular[];
   popularArticles: Popular[];
+  cover: Cover;
 
   constructor(
     private itemService: ItemService,
@@ -87,8 +46,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
+    this.fetchCover();
     this.fetchMostPopularCities();
     this.fetchMostPopularArticles();
+  }
+
+  fetchCover() {
+    this.cityService
+    .getCover()
+    .takeWhile(() => this.componentActive)
+    .subscribe(
+      data => {
+        this.cover = {
+          img: this.globalService.imageHost + '/img/zzhome/covers3_' + data.img + '.jpg',
+          title: data.item.name + ', ' + data.city.name,
+          url: data.item.alias ? data.city.alias + '/attracties/' + data.item.alias : ''
+        };
+      },
+      error => this.errorService.handleError(error)
+    );
   }
 
   fetchMostPopularCities() {

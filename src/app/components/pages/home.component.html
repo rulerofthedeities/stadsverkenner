@@ -1,0 +1,32 @@
+<km-main-menu></km-main-menu>
+<div class="slide">
+  <img src="{{cover?.img}}" class="cover" alt="{{cover?.title}}">
+  <div class="slidetxt" *ngIf="cover?.url">
+    <a routerLink="{{cover?.url}}">{{cover?.title}}</a>
+  </div>
+  <div class="slidetxt" *ngIf="!cover?.url">
+    {{cover?.title}}
+  </div>
+</div>
+<div class="popular">
+  <div class="cities">
+    <div class="header">
+      Populairste steden
+    </div>
+    <ul class="list-unstyled box cities">
+      <li *ngFor="let city of popularCities; let i=index">
+        {{i+1}}. <a routerLink="{{city.alias}}">{{city.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="articles">
+    <div class="header">
+      Populairste artikels
+    </div>
+    <ul class="list-unstyled box articles">
+      <li *ngFor="let item of popularArticles; let i=index">
+        {{i+1}}. <a routerLink="{{item.city + '/attracties/' + item.alias}}">{{item.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

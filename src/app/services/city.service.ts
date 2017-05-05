@@ -47,4 +47,11 @@ export class CityService {
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }
+
+  getCover() {
+    return this.http
+    .get('/api/cover')
+    .map(response => response.json().obj)
+    .catch(error => Observable.throw(error));
+  }
 }

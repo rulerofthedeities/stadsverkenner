@@ -1,0 +1,47 @@
+.slide {
+  float: left;
+}
+.cover {
+  border: 1px solid #538f18;
+  height: 407px;
+  width: 860px;
+}
+.popular {
+  width: 274px;
+  float: right;
+}
+.header {
+  background-color: #b9e58b;
+  border: 1px solid #538f18;
+  border-bottom: 0;
+  color: #333;
+  font-weight: bold;
+  padding: 2px;
+  text-align: center;
+}
+.box{
+  padding: 11px 8px;
+  border: 1px solid #538f18;
+}
+.box.cities{
+  margin-bottom: 9px;
+}
+.box.articles{
+  margin-bottom: 4px;
+}
+.slidetxt{
+  opacity: 0.80;
+  filter: alpha(opacity=80);
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  font-size: 20px;
+  margin: -33px 1px 0 1px;
+  padding: 2px 6px;
+  color: black;
+  height: 32px;
+}
+
+a:link, a:hover, a:visited, a:active {
+  color: #111;
+}

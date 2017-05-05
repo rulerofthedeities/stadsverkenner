@@ -150,7 +150,7 @@ module.exports = {
         total:{$sum:'$traffic'}
       }},
       {$sort:{total:-1}},
-      {$limit:10},
+      {$limit: 8},
       {$project:{
         _id: 0,
         alias: '$_id.alias',
@@ -172,7 +172,7 @@ module.exports = {
         total:{$sum:'$traffic'}
       }},
       {$sort:{total:-1}},
-      {$limit:10},
+      {$limit: 7},
       {$project:{
         _id: 0,
         alias: '$_id.alias',
