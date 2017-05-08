@@ -1,13 +1,14 @@
 .slide {
   float: left;
+  margin-bottom: 4px;
 }
 .cover {
   border: 1px solid #538f18;
-  height: 407px;
-  width: 860px;
+  height: 405px;
+  width: 858px;
 }
 .popular {
-  width: 274px;
+  width: 276px;
   float: right;
 }
 .header {
@@ -20,7 +21,7 @@
   text-align: center;
 }
 .box{
-  padding: 11px 8px;
+  padding: 12px 8px 9px 8px;
   border: 1px solid #538f18;
 }
 .box.cities{
@@ -44,4 +45,17 @@
 
 a:link, a:hover, a:visited, a:active {
   color: #111;
+}
+
+/* 480, 768, 992, 1200 */
+@media screen and (max-width:1199px) {
+  .cover {width: 658px;}
+}
+@media screen and (max-width:991px) {
+  .cover {width: 720px;}
+  .popular {display: none;}
+}
+@media screen and (max-width:767px) {
+  .cover {width: 100%;height: 100%}
+  .popular {display: none;}
 }

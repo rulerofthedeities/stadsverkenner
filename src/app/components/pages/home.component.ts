@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {CityService} from '../../services/city.service';
 import {ItemService} from '../../services/item.service';
@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   popularCities: Popular[];
   popularArticles: Popular[];
   cover: Cover;
+  coverSuffix = '';
+  coverImage = '';
 
   constructor(
     private itemService: ItemService,
@@ -45,6 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.fetchData();
   }
 
+  onResize(event) {
+    this.setCoverSuffix(event.target.innerWidth);
+    this.setCoverImage();
+  }
+
   fetchData() {
     this.fetchCover();
     this.fetchMostPopularCities();
@@ -57,11 +64,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       data => {
+        this.setCoverSuffix(window.innerWidth);
+        this.coverImage = data.img;
         this.cover = {
-          img: this.globalService.imageHost + '/img/zzhome/covers3_' + data.img + '.jpg',
+          img: '',
           title: data.item.name + ', ' + data.city.name,
           url: data.item.alias ? data.city.alias + '/attracties/' + data.item.alias : ''
         };
+        this.setCoverImage();
       },
       error => this.errorService.handleError(error)
     );
@@ -85,6 +95,30 @@ export class HomeComponent implements OnInit, OnDestroy {
       data => this.popularArticles = data,
       error => this.errorService.handleError(error)
     );
+  }
+
+  setCoverSuffix(screenWidth: number) {
+    let suffix = ''; // max width (x858)
+    /* 480, 768, 992, 1200 */
+    if (screenWidth < 1200) {
+      suffix = 'x658';
+    }
+    if (screenWidth < 992) {
+      suffix = 'x720';
+    }
+
+    if (screenWidth < 1) {
+      suffix = '';
+    }
+    if (!this.cover) {
+    }
+    this.coverSuffix = suffix;
+  }
+
+  setCoverImage() {
+    if (this.cover) {
+      this.cover.img = this.globalService.imageHost + '/img/zzhome/covers_3/covers3_' + this.coverImage + this.coverSuffix + '.jpg';
+    }
   }
 
   ngOnDestroy() {

@@ -1,5 +1,5 @@
 <km-main-menu></km-main-menu>
-<div class="slide">
+<div class="slide" (window:resize)="onResize($event)">
   <img src="{{cover?.img}}" class="cover" alt="{{cover?.title}}">
   <div class="slidetxt" *ngIf="cover?.url">
     <a routerLink="{{cover?.url}}">{{cover?.title}}</a>
@@ -21,7 +21,7 @@
   </div>
   <div class="articles">
     <div class="header">
-      Populairste artikels
+      Populairste bezienswaardigheden
     </div>
     <ul class="list-unstyled box articles">
       <li *ngFor="let item of popularArticles; let i=index">
