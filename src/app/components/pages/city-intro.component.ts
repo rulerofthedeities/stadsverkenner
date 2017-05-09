@@ -68,7 +68,7 @@ export class CityIntroComponent implements OnInit, OnDestroy {
     .getArticles(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      data => this.articles = data.slice(0, 11),
+      data => this.articles = data.slice(0, 13),
       error => this.errorService.handleError(error)
     );
   }

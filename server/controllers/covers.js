@@ -9,7 +9,7 @@ let getRandomInt = function(min, max) {
 module.exports = {
   getCover: function(req, res) {
     Cover.find({},{_id:0}, function(err, docs) {
-      const nr = 0;//getRandomInt(0, docs.length - 1);
+      const nr = getRandomInt(0, docs.length - 1);
       response.handleError(err, res, 500, 'Error fetching covers', function(){
         response.handleSuccess(res, docs[nr], 200, 'Fetched cover');
       });

@@ -2,6 +2,7 @@
 <section *ngIf="city">
 
   <div class="adbar">
+    ADS<br>
     ADS
   </div>
   <div class="main">
@@ -31,7 +32,7 @@
               {{city.population.current.city.name}}: {{city.population.current.city.value|population}} ({{city.population.current.city.year}})
             </div>
             <div *ngIf="city.population?.current?.metro">
-              {{city.population.current.metro.name}}: {{city.population.current.metro.value|population}} ({{city.population.current.metro.year}})
+              Metro: {{city.population.current.metro.value|population}} ({{city.population.current.metro.year}})
             </div>
           </div>
           <div class="subheader">Taal</div>
@@ -46,7 +47,7 @@
           </div>
           <div class="subheader">Munteenheid</div>
           <div class="subdata">
-            {{city.currency.name}} ({{city.currency.code}})
+            {{city.currency.name.nl ? city.currency.name.nl : city.currency.name.en}} ({{city.currency.code}})
           </div>
         </div>
       </div>
@@ -56,7 +57,7 @@
     <ul class="itemThumbs list-unstyled" *ngIf="articles">
       <li 
         *ngFor="let article of articles; let i=index;let isOdd=odd;" 
-        class="itemThumb" [class.odd]="isOdd" [class.wide]="i > 7">
+        class="itemThumb" [class.odd]="isOdd" [class.wide1200]="i > 10"  [class.wide992]="i > 7">
         <a routerLink="{{'attracties/' + article.alias}}"
         >
           <img
