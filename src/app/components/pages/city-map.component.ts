@@ -95,8 +95,8 @@ export class CityMapComponent implements OnInit, OnDestroy {
 
     articles.forEach(article => {
       marker = {
-        lon: article.pos.coordinates[0],
-        lat: article.pos.coordinates[1],
+        lon: parseFloat(article.pos.coordinates[0]),
+        lat: parseFloat(article.pos.coordinates[1]),
         label: '',
         icon: article.isTopAttraction ? img_top : (article.hasArticle ? img_red : img_blue),
         url: article.hasArticle ? '/' + this.city.alias.nl + '/attracties/' + article.alias : '',

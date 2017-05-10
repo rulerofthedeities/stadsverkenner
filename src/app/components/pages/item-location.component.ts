@@ -58,13 +58,13 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
         }
         this.map = {
           zoom: 16,
-          lon: locationData.pos.coordinates[0],
-          lat: locationData.pos.coordinates[1]
+          lon: parseFloat(locationData.pos.coordinates[0]),
+          lat: parseFloat(locationData.pos.coordinates[1])
         };
         console.log(locationData);
         const marker: Marker = {
-          lon: locationData.pos.coordinates[0],
-          lat: locationData.pos.coordinates[1],
+          lon: parseFloat(locationData.pos.coordinates[0]),
+          lat: parseFloat(locationData.pos.coordinates[1]),
           label: '',
           icon: '/assets/img/map/pin-red.png',
           url: '',
