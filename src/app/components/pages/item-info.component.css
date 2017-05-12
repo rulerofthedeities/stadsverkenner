@@ -1,6 +1,9 @@
 :host /deep/ .content {
   max-width: 680px;
 }
+:host /deep/ .content a {
+  cursor: pointer;
+}
 :host /deep/ .article {
   padding: 10px 6px 4px 6px;
   font-size: 16px;
@@ -12,6 +15,9 @@
   float: right;
   margin: 3px;
   padding: 0 0 0 5px;
+}
+:host /deep/ .pic.wide {
+  margin-bottom: 8px;
 }
 :host /deep/ .pic.left {
   float: left;
@@ -27,6 +33,7 @@
   border: 1px solid #999;
   border-right-color: #444;
   border-bottom-color: #444;
+  border-radius: 4px;
 }
 :host /deep/ .pic img[data-lnk]{
   cursor: pointer;

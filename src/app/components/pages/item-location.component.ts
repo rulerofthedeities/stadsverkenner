@@ -61,7 +61,6 @@ export class ItemLocationComponent implements OnInit, OnDestroy {
           lon: parseFloat(locationData.pos.coordinates[0]),
           lat: parseFloat(locationData.pos.coordinates[1])
         };
-        console.log(locationData);
         const marker: Marker = {
           lon: parseFloat(locationData.pos.coordinates[0]),
           lat: parseFloat(locationData.pos.coordinates[1]),

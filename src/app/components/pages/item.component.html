@@ -8,8 +8,18 @@
   </div>
   <div class="article">
     <div class="header">
-      <h1>{{article?.title}}</h1>
-      <div class="localname">{{article?.subTitle}}</div>
+      <div class="titleHeader">
+        <a [routerLink]="previous" class="previous chevron" *ngIf="previous">
+          <span class="fa fa-chevron-left"></span>
+        </a>
+        <a [routerLink]="next" class="next chevron" *ngIf="next">
+          <span class="fa fa-chevron-right"></span>
+        </a>
+        <div class="title">
+          <h1>{{article?.title}}</h1>
+          <div class="localname">{{article?.subTitle}}</div>
+        </div>
+      </div>
       <div class="intro">
         <div [innerHTML]="preview | sanitizeHtml" (click)="onClick($event)"></div>
       </div>

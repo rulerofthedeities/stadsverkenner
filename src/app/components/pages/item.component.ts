@@ -21,6 +21,8 @@ export class ItemComponent implements OnInit, OnDestroy {
   cityAlias: string;
   preview: string;
   articles: [Article];
+  next: string;
+  previous: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,7 +70,10 @@ export class ItemComponent implements OnInit, OnDestroy {
     .getArticles(cityAlias)
     .takeWhile(() => this.componentActive)
     .subscribe(
-      articles => this.articles = articles,
+      articles => {
+        this.articles = articles;
+        this.setNextAndPrevious();
+      },
       error => this.errorService.handleError(error)
     );
   }
@@ -79,6 +84,20 @@ export class ItemComponent implements OnInit, OnDestroy {
       'location' : this.article.hasPos,
       'photos' : (this.article.photoCount + this.article.photoCountRelated) > 0
     };
+  }
+
+  setNextAndPrevious() {
+    let current;
+    // find current
+    this.articles.forEach((article, i) => {
+      if (article.alias === this.itemAlias) {
+        current = i;
+      }
+    });
+    if (current !== null) {
+      this.previous = current > 0 ? '../' + this.articles[current - 1].alias : null;
+      this.next = '../' + this.articles[(current + 1) % this.articles.length ].alias;
+    }
   }
 
   onClick($event: any) {

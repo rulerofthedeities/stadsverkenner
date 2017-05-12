@@ -71,10 +71,19 @@ export class ItemInfoComponent implements OnInit, OnDestroy {
         modal.imgUrl = this.globalService.imageHost + '/img/' + this.path + '/' + imgId + 's.jpg';
         modal.showModal = true;
       }
-      const hrefId = $event.target.dataset.href;
+      let hrefId = $event.target.dataset.href;
       if (hrefId) {
-        console.log('linking to', hrefId, this.route);
-        this.router.navigate(['../../' + hrefId], { relativeTo: this.route });
+        if (hrefId.substring(0, 3) === '../') {
+          // outside current city -> skip attracties dir
+          hrefId = '../' + hrefId;
+        }
+        if (hrefId.substring(0, 4) === 'http') {
+          // external url
+          // window.location.href = hrefId;
+          window.open(hrefId, '_blank');
+        } else {
+          this.router.navigate(['../../' + hrefId], { relativeTo: this.route });
+        }
       }
     }
   }
