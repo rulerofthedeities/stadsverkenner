@@ -3,14 +3,17 @@
   "description": "City attractions website",
   "version": "0.1.0",
   "private": true,
+  "author": "Kristiaan Van Ermengem",
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "ng": "ng",
-    "start": "nodemon server",
+    "start": "pm2 start stadsverkenner.js --watch",
     "build": "ng build -w",
     "build:prod": "ng build -prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build -prod"
   },
   "engines": {
     "node": "6.10.0",
