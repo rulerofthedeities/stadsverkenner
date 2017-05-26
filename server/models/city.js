@@ -31,4 +31,6 @@ var citySchema = new Schema({
   }, {collection: 'cities'}
 );
 
+citySchema.index({'alias.nl': 1, 'publish.nl': 1}); 
+
 module.exports = mongoose.model('City', citySchema);

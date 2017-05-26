@@ -28,6 +28,7 @@ import {ItemComponent} from './components/pages/item.component';
 import {ItemInfoComponent} from './components/pages/item-info.component';
 import {ItemLocationComponent} from './components/pages/item-location.component';
 import {ItemPhotosComponent} from './components/pages/item-photos.component';
+import {ItemRedirectComponent} from './components/pages/item-redirect.component';
 import {HomeComponent} from './components/pages/home.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 import {PictureModalComponent} from './components/modals/picture-modal.component';
@@ -80,6 +81,7 @@ import {APPCONFIG} from './app.config';
     PictureModalComponent,
     MapComponent,
     MapMarkersComponent,
+    ItemRedirectComponent,
     ErrorMessageComponent,
     SanitizeHtmlPipe,
     FormatPopulationPipe

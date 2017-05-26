@@ -30,4 +30,6 @@ var itemSchema = new Schema({
   }, {collection: 'items'}
 );
 
+itemSchema.index({'city.alias.nl': 1, 'alias.nl': 1, 'isPublished.nl': 1}); 
+
 module.exports = mongoose.model('Item', itemSchema);

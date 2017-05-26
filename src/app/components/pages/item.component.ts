@@ -106,7 +106,6 @@ export class ItemComponent implements OnInit, OnDestroy {
       if (hrefId) {
         console.log('linking to', hrefId, this.route);
         this.router.navigate(['../' + hrefId], { relativeTo: this.route });
-        // this.router.navigate(['/' + this.cityAlias + '/attracties/' + hrefId]);
       }
     }
   }

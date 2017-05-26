@@ -9,6 +9,7 @@ import {ItemComponent} from './components/pages/item.component';
 import {ItemInfoComponent} from './components/pages/item-info.component';
 import {ItemLocationComponent} from './components/pages/item-location.component';
 import {ItemPhotosComponent} from './components/pages/item-photos.component';
+import {ItemRedirectComponent} from './components/pages/item-redirect.component';
 import {PageNotFoundComponent} from './components/pages/page-not-found.component';
 
 export const routes: Routes = [
@@ -29,7 +30,8 @@ export const routes: Routes = [
           {path: 'fotos', component: ItemPhotosComponent}
         ]
       },
-      {path: 'kaart', component: CityMapComponent}
+      {path: 'kaart', component: CityMapComponent},
+      {path: '**', component: ItemRedirectComponent}
     ]
   },
   {path: '**', component: PageNotFoundComponent}
