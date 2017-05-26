@@ -13,9 +13,9 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['item.component.css']
 })
 export class ItemComponent implements OnInit, OnDestroy {
+  private componentActive = true;
   article: Article;
   itemAlias: string;
-  componentActive = true;
   dataLoaded = false;
   tabs: Object = {};
   cityAlias: string;
@@ -23,6 +23,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   articles: [Article];
   next: string;
   previous: string;
+  pageExists = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,12 +55,16 @@ export class ItemComponent implements OnInit, OnDestroy {
     .takeWhile(() => this.componentActive)
     .subscribe(
       article => {
-        this.article = article;
-        this.preview = this.itemService.processData(article.preview);
-        this.dataLoaded = true;
-        const newTitle = article.title + ', ' + article.cityName;
-        this.titleService.setTitle(newTitle);
-        this.setTabs();
+        if (article) {
+          this.article = article;
+          this.preview = this.itemService.processData(article.preview);
+          this.dataLoaded = true;
+          const newTitle = article.title + ', ' + article.cityName;
+          this.titleService.setTitle(newTitle);
+          this.setTabs();
+        } else {
+          this.pageExists = false;
+        }
       },
       error => this.errorService.handleError(error)
     );
@@ -68,7 +73,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   fetchArticles(cityAlias: string) {
     this.itemService
     .getArticles(cityAlias)
-    .takeWhile(() => this.componentActive)
+    .takeWhile(() => this.componentActive && this.pageExists)
     .subscribe(
       articles => {
         this.articles = articles;

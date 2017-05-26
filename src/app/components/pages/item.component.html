@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="pageExists">
   <div class="article-list">
     <ul class="list-unstyled">
       <li *ngFor="let item of articles" [ngClass]="{selected:item.alias===itemAlias}" (click)="onSelectItem(item.alias)">
@@ -35,3 +35,5 @@
     <router-outlet></router-outlet>
   </div>
 </section>
+<km-page-not-found *ngIf="!pageExists">
+</km-page-not-found>
