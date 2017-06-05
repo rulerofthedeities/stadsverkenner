@@ -6,6 +6,9 @@
     <a *ngIf="tabs.attractions" routerLink="attracties" routerLinkActive="active" class="tab">
       Attracties
     </a>
+    <a *ngIf="tabs.activities" routerLink="activiteiten" routerLinkActive="active" class="tab">
+      Activiteiten
+    </a>
     <a *ngIf="tabs.map" routerLink="kaart" routerLinkActive="active" class="tab">
       Kaart
     </a>
@@ -27,6 +30,12 @@
       [ngStyle]="{display:isActive('/' + cityAlias + '/attracties') ? 'block' : 'none'}">
       <a routerLink="attracties" (click)="toggleActive($event)">
         Attracties
+      </a>
+    </li>
+    <li routerLinkActive="active"
+      [ngStyle]="{display:isActive('/' + cityAlias + '/activiteiten') ? 'block' : 'none'}">
+      <a routerLink="activiteiten" (click)="toggleActive($event)">
+        Activiteiten
       </a>
     </li>
     <li routerLinkActive="active"

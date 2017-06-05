@@ -5,6 +5,7 @@ import {CityComponent} from './components/pages/city.component';
 import {CityIntroComponent} from './components/pages/city-intro.component';
 import {CityAttractionsComponent} from './components/pages/city-attractions.component';
 import {CityMapComponent} from './components/pages/city-map.component';
+import {CityActivitiesComponent} from './components/pages/city-activities.component';
 import {ItemComponent} from './components/pages/item.component';
 import {ItemInfoComponent} from './components/pages/item-info.component';
 import {ItemLocationComponent} from './components/pages/item-location.component';
@@ -30,6 +31,7 @@ export const routes: Routes = [
           {path: 'fotos', component: ItemPhotosComponent}
         ]
       },
+      {path: 'activiteiten', component: CityActivitiesComponent},
       {path: 'kaart', component: CityMapComponent},
       {path: '**', component: ItemRedirectComponent}
     ]

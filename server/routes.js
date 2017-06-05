@@ -1,6 +1,7 @@
 var path = require("path"),
     cities = require("./controllers/cities"),
     items = require("./controllers/items"),
+    activities = require("./controllers/activities"),
     covers = require("./controllers/covers");
 
 module.exports.initialize = function(app, router) {
@@ -18,6 +19,8 @@ module.exports.initialize = function(app, router) {
   router.get('/traffic/cities', items.getCitiesTraffic);
   router.get('/traffic/articles', items.getArticlesTraffic);
   router.get('/cover', covers.getCover);
+  router.get('/activities/:city', activities.getActivities);
+  router.get('/activities/tpes/:city', activities.getActivityTpes);
 
   app.use('/api/', router);
 

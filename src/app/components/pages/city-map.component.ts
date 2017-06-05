@@ -22,7 +22,7 @@ import 'rxjs/add/operator/takeWhile';
   `
 })
 export class CityMapComponent implements OnInit, OnDestroy {
-  componentActive = true;
+  private componentActive = true;
   city: City;
   map: Map;
   markers: Marker[] = [];

@@ -61,6 +61,7 @@ export class CityComponent implements OnInit, OnDestroy {
     this.tabs = {
       'intro' : true,
       'attractions' : flags.hasAttractionsListPage,
+      'activities' : flags.hasToursPage,
       'map' : flags.hasMapPage
     };
   }
