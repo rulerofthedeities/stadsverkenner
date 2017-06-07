@@ -10,7 +10,8 @@ var languageSchema = new Schema({
   "imgUrl": String,
   "thumbUrl": String,
   "rank": String,
-  "ratingAvg": Number
+  "ratingAvg": Number,
+  "translationLevel": Number
 }, {_id: false});
 
 var pricingSchema = new Schema({

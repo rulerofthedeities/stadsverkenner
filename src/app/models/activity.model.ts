@@ -11,4 +11,5 @@ export interface Activity {
   thumbUrl: string;
   rank: number;
   ratingAvg: string;
+  translationLevel: number;
 }

@@ -22,6 +22,7 @@ import {AppComponent} from './components/app.component';
 import {MainMenuComponent, CityMenuComponent, ItemMenuComponent} from './components/menu.component';
 import {HeaderComponent} from './components/header.component';
 import {FooterComponent} from './components/footer.component';
+import {ActivitiesComponent} from './components/pages/activities.component';
 import {CitiesComponent} from './components/pages/cities.component';
 import {CityComponent} from './components/pages/city.component';
 import {CityIntroComponent} from './components/pages/city-intro.component';
@@ -72,6 +73,7 @@ import {APPCONFIG} from './app.config';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    ActivitiesComponent,
     CitiesComponent,
     CityComponent,
     CityIntroComponent,

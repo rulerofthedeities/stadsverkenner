@@ -1,0 +1,52 @@
+<ul class="list-unstyled"  *ngIf="activities; else loading;"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="300"
+    (scrolled)="onScrollDown()">
+  <li *ngFor="let activity of activities; let i = index" class="activityBlock">
+    <div class="img">
+      <a href="{{activity.productUrl}}" data-rel="external" rel="nofollow">
+        <img src="{{activity.thumbUrl}}" alt="{{activity.name}}" class="thumb">
+      </a>
+    </div>
+    <div class="pricing">
+      <div class="from">Vanaf</div>
+      <div class="value">
+        <span class="symbol">€</span>
+        {{activity.pricingEuro}}
+      </div>
+    </div>
+    <div class="title">
+      <a href="{{activity.productUrl}}" data-rel="external" rel="nofollow">
+        {{activity.name}}
+      </a>
+    </div>
+    <div class="text">
+      <ul class="info">
+        <li *ngIf="activity.ratingAvg">
+          <span class="bold">Beoordeling:</span>
+          <span class="stars">
+            <span class="fa fa-star" *ngFor="let s of getStars(activity.ratingAvg)"></span>
+            <span class="fa fa-star-half" *ngIf="hasHalfStar(activity.ratingAvg)"></span>
+          </span>
+        </li>
+        <li *ngIf="activity.duration">
+          <span class="bold">Duur:</span>
+          <span class="italic">{{activity.duration}}</span>
+        </li>
+        <li>
+          <span class="bold">Aangeleverd door:</span>
+          <span class="italic">viator.com</span>
+        </li>
+      </ul>
+    </div>
+    <div class="btn btn-book" (click)="onBook(activity.productUrl, i)">
+      Boek deze rondleiding{{getLoader(i)}}
+    </div>
+    <div class="description" [innerHTML]="activity.description | sanitizeHtml">
+    </div>
+  </li>
+</ul>
+<ng-template #loading>
+  Even geduld, de activiteiten worden geladen...
+</ng-template>

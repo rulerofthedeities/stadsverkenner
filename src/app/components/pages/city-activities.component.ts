@@ -10,27 +10,15 @@ import {Activity} from '../../models/activity.model';
 import 'rxjs/add/operator/takeWhile';
 
 @Component({
-  template: `ACTIVITIES
-    <div *ngIf="activities">
-      <input
-        type="text"
-        id="search"
-        placeholder="Zoek naar activiteit of rondleiding"
-        class="form-control"
-        [(ngModel)]="search"
-        (ngModelChange)="onSearchChanged()">
-      total: {{total.total}} (waarvan {{total.filtered}} getoond)
-      <ul class="list-unstyled"
-        infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="300"
-        (scrolled)="onScrollDown()">
-        <li *ngFor="let activity of activities">
-          {{activity|json}}
-        </li>
-      </ul>
-    </div>
-  `
+  templateUrl: 'city-activities.component.html',
+  styles: [`
+    .totals{
+      color: #666;
+      font-size: 13px;
+      margin-top: 3px;
+      font-style: italic;
+    }
+  `]
 })
 
 export class CityActivitiesComponent implements OnInit, OnDestroy {
@@ -59,6 +47,20 @@ export class CityActivitiesComponent implements OnInit, OnDestroy {
     this.getCityAlias();
   }
 
+  onSearchChanged() {
+    const regex = new RegExp(this.search, 'gi');
+    this.filteredActivities = this.allActivities.filter(activity => activity.name.match(regex));
+    this.total.filtered = this.filteredActivities.length;
+    this.setActivityBatch(null);
+  }
+
+  onScrollDown() {
+    const len = this.activities.length;
+    if (len < this.total.filtered) {
+      this.setActivityBatch(len + this.batch);
+    }
+  }
+
   private getCityAlias() {
     this.router.events
     .takeWhile(() => this.componentActive)
@@ -73,24 +75,8 @@ export class CityActivitiesComponent implements OnInit, OnDestroy {
     });
   }
 
-  onScrollDown() {
-    const len = this.activities.length;
-    if (len < this.total.filtered) {
-      this.setActivityBatch(len + this.batch);
-    }
-  }
-
-  onSearchChanged() {
-    console.log(this.search);
-    const regex = new RegExp(this.search, 'gi');
-    this.filteredActivities = this.allActivities.filter(activity => activity.description.match(regex));
-    this.total.filtered = this.filteredActivities.length;
-    console.log(this.filteredActivities.length);
-    this.setActivityBatch(null);
-  }
-
   private setActivityBatch(len: number) {
-    this.activities = this.filteredActivities.slice(0, len || this.activities.length);
+    this.activities = this.filteredActivities.slice(0, len || this.filteredActivities.length);
   }
 
   private fetchCity(cityAlias: string) {

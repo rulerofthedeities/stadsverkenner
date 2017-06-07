@@ -1,0 +1,19 @@
+<div>
+  <input
+    type="text"
+    id="search"
+    placeholder="Zoek naar activiteit of rondleiding"
+    class="form-control input-lg"
+    autocomplete="off"
+    [(ngModel)]="search"
+    (ngModelChange)="onSearchChanged()">
+  <div class="totals" *ngIf="total">
+    Totaal: {{total.total}} (waarvan {{total.filtered}} getoond)
+  </div>
+  <km-activities
+    [activities]="activities"
+    (scrolledDown)="onScrollDown()"
+    >
+  </km-activities>
+</div>
+

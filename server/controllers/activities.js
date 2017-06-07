@@ -11,7 +11,8 @@ module.exports = {
         tpe: {$ne: ''},
         provider: 'viator',
         'nl':{$exists:true},
-        'nl.isActive': true
+        'nl.isActive': true,
+        'nl.translationLevel': {$gte: 90}
       }},
       {$project:{
         _id:0,
