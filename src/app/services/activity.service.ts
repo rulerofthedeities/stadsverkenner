@@ -13,9 +13,10 @@ export class ActivityService {
     private http: Http
   ) {}
 
-  getActivities(cityAlias: string) {
+  getActivities(cityAlias: string, itemId: string) {
+    console.log('itemId', itemId);
     return this.http
-    .get('/api/activities/' + cityAlias)
+    .get('/api/activities/' + cityAlias + '/' + itemId)
     .map(response => response.json().obj)
     .catch(error => Observable.throw(error));
   }

@@ -23,9 +23,8 @@ import 'rxjs/add/operator/takeWhile';
 
 export class CityActivitiesComponent implements OnInit, OnDestroy {
   private componentActive = true;
-  private allActivities: Activity[];
-  private filteredActivities: Activity[];
-  imgHost: string;
+  private allActivities: Activity[] = [];
+  private filteredActivities: Activity[] = [];
   city: City;
   total: {total: number, filtered: number};
   batch = 10; // #of activities shown per scroll
@@ -43,15 +42,16 @@ export class CityActivitiesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.imgHost = this.globalService.imageHost;
     this.getCityAlias();
   }
 
   onSearchChanged() {
     const regex = new RegExp(this.search, 'gi');
-    this.filteredActivities = this.allActivities.filter(activity => activity.name.match(regex));
-    this.total.filtered = this.filteredActivities.length;
-    this.setActivityBatch(null);
+    if (this.total) {
+      this.filteredActivities = this.allActivities.filter(activity => activity.name.match(regex));
+      this.total.filtered = this.filteredActivities.length;
+      this.setActivityBatch(null);
+    }
   }
 
   onScrollDown() {
@@ -95,7 +95,7 @@ export class CityActivitiesComponent implements OnInit, OnDestroy {
 
   private fetchActivities() {
     this.activityService
-    .getActivities(this.city.alias.en)
+    .getActivities(this.city.alias.en, '')
     .takeWhile(() => this.componentActive)
     .subscribe(
       data  => this.setActivities(data),

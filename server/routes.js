@@ -20,6 +20,7 @@ module.exports.initialize = function(app, router) {
   router.get('/traffic/articles', items.getArticlesTraffic);
   router.get('/cover', covers.getCover);
   router.get('/activities/:city', activities.getActivities);
+  router.get('/activities/:city/:itemId', activities.getActivitiesItem);
   router.get('/activities/tpes/:city', activities.getActivityTpes);
 
   app.use('/api/', router);

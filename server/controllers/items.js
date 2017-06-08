@@ -1,6 +1,7 @@
 var response = require('../response'),
     mongoose = require('mongoose'),
-    Item = require('../models/item');
+    Item = require('../models/item'),
+    Activity = require('../models/activity');
 
 module.exports = {
   getArticles: function(req, res) {
@@ -55,17 +56,40 @@ module.exports = {
         title:'$title.nl',
         subTitle: '$subTitle.nl',
         alias:'$alias.nl',
+        cityAlias:'$city.alias.en',
         preview:'$preview.nl',
         cityName: '$city.name.nl',
+        legacyId: '$legacy.id',
         hasPos: {$gt: ["$pos", null]},
         photoCount: {$size: { $ifNull: [ "$photos", [] ] }},
         photoCountRelated: {$size: { $ifNull: [ "$photosRelated", [] ] }}
       }}
     ];
     Item.aggregate(pipeline, function(err, docs) {
-      response.handleError(err, res, 500, 'Error fetching articles', function(){
-        response.handleSuccess(res, docs[0], 200, 'Fetched articles');
-      });
+      if (docs[0]) {
+        const q = {
+          city: docs[0].cityAlias,
+          tpe: {$ne: ''},
+          provider: 'viator',
+          'nl':{$exists:true},
+          'nl.isActive': true,
+          'nl.translationLevel': {$gte: 90}
+        }
+        if (docs[0].legacy) {
+          q.itemIds = docs[0].legacy.id
+        }
+        Activity.find(q, function(err, activityDocs) {
+          docs[0].nrOfActivities = 0;
+          if (activityDocs) {
+            docs[0].nrOfActivities = activityDocs.length;
+          }
+          response.handleError(err, res, 500, 'Error fetching articles', function(){
+            response.handleSuccess(res, docs[0], 200, 'Fetched articles');
+          });
+        })
+      } else {
+        response.handleSuccess(res, null, 200, 'No articles found');
+      }
     });
   },
   getArticleInfo: function(req, res) {

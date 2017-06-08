@@ -21,7 +21,6 @@ export class ActivitiesComponent {
   }
 
   onBook(targetUrl: string, i: number) {
-    console.log('target', targetUrl, i);
     this.setLoader(i);
     window.location.href = targetUrl;
   }
@@ -41,7 +40,7 @@ export class ActivitiesComponent {
     }
     return loader;
   }
-  
+
   private setLoader(i) {
     const loading = '...',
           timer = Observable.timer(100, 500); // Start after .1 secs, then check every .5 sec
